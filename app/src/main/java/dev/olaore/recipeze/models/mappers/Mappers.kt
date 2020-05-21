@@ -19,6 +19,14 @@ fun NetworkRecipeSearchContainer.asDatabaseModel(): List<DatabaseRecipe> {
     }
 }
 
+fun List<DatabaseRecipe>.asDomainModel(): List<Recipe> {
+    return map {
+        Recipe(
+            it.id, it.imageUri, it.readyInMinutes, it.title, true, it.summary
+        )
+    }
+}
+
 fun getRecipeSummary(id: Int): NetworkRecipeSummary? {
     return null
 }
