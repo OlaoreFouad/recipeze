@@ -1,0 +1,19 @@
+package dev.olaore.recipeze.database.dao
+
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import dev.olaore.recipeze.models.database.DatabaseRecipeIngredient
+
+@Dao
+interface IngredientsDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addIngredients(vararg ingredients: DatabaseRecipeIngredient)
+
+    @Query("SELECT * FROM recipes_ingredients_table WHERE recipeId = :recipeId ORDER BY ingredientIndex")
+    suspend fun getIngredientsForRecipe(recipeId: Int): LiveData<List<DatabaseRecipeIngredient>>
+
+}

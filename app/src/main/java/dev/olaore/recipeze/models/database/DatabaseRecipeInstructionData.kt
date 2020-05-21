@@ -30,5 +30,7 @@ data class DatabaseRecipeInstructionData(
 
     var recipeId: Int,
 
-    var name: String
+    var name: String,
+
+    var isEquipment: Boolean
 )
