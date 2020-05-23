@@ -29,7 +29,7 @@ class SplashScreenFragment : Fragment() {
             )
         }, 2500)
 
-        // TODO: add animations for the centered "logo" in splash screen layout
+        // TODO: add animations for the centered "logo" in splash screen layout and navigation in the mainactivity
     }
 
 }
