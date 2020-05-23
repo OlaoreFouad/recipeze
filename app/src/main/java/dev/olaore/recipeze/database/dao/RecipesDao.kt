@@ -14,7 +14,7 @@ interface RecipesDao {
     suspend fun delete(recipe: DatabaseRecipe)
 
     @Query("SELECT * FROM recipes_table")
-    suspend fun getRecipes(): LiveData<List<DatabaseRecipe>>
+    fun getRecipes(): LiveData<List<DatabaseRecipe>>
 
     @Query("SELECT * FROM recipes_table WHERE id = :id")
     suspend fun getRecipe(id: Int): DatabaseRecipe

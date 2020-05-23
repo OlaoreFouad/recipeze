@@ -14,6 +14,6 @@ interface InstructionsDao {
     suspend fun addInstructions(vararg instructions: DatabaseRecipeInstruction)
 
     @Query("SELECT * FROM recipes_instructions_table WHERE recipeId = :recipeId")
-    suspend fun getInstructionsForRecipe(recipeId: Int): LiveData<List<DatabaseRecipeInstruction>>
+    fun getInstructionsForRecipe(recipeId: Int): LiveData<List<DatabaseRecipeInstruction>>
 
 }

@@ -32,7 +32,7 @@ interface UsersDao {
     suspend fun addCuisine(cuisine: DatabaseCuisine)
 
     @Query("SELECT * FROM search_results_table ORDER BY dateAdded DESC")
-    suspend fun getSearchResults(): LiveData<List<SearchResult>>
+    fun getSearchResults(): LiveData<List<SearchResult>>
 
     @Insert
     suspend fun addSearchResult(result: SearchResult)

@@ -13,7 +13,8 @@ import dev.olaore.recipeze.models.database.SearchResult
 
 @Database(
     entities = [DatabaseUser::class, DatabaseDiet::class, DatabaseCuisine::class, SearchResult::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class UsersDatabase : RoomDatabase() {
     abstract val usersDao: UsersDao

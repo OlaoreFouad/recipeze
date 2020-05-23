@@ -16,7 +16,7 @@ interface InstructionsDataDao {
     @Query(
         "SELECT * FROM recipes_instruction_data_table WHERE instructionId = :instructionsId AND recipeId = :recipeId"
     )
-    suspend fun getInstructionsDataForRecipe(
+    fun getInstructionsDataForRecipe(
         recipeId: Int, instructionsId: Int
     ): LiveData<List<DatabaseRecipeInstructionData>>
 

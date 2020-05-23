@@ -14,6 +14,6 @@ interface IngredientsDao {
     suspend fun addIngredients(vararg ingredients: DatabaseRecipeIngredient)
 
     @Query("SELECT * FROM recipes_ingredients_table WHERE recipeId = :recipeId ORDER BY ingredientIndex")
-    suspend fun getIngredientsForRecipe(recipeId: Int): LiveData<List<DatabaseRecipeIngredient>>
+    fun getIngredientsForRecipe(recipeId: Int): LiveData<List<DatabaseRecipeIngredient>>
 
 }
