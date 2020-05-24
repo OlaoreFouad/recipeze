@@ -12,6 +12,7 @@
         android:id="@+id/app_logo"
         android:textSize="@dimen/large_text_size"
         android:textStyle="bold"
+        android:transitionName="app_name"
         android:layout_gravity="center"
         android:fontFamily="@font/balsamiq_bold"
         android:textColor="@color/colorPrimaryDark"
