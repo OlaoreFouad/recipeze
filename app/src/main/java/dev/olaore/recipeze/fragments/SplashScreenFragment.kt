@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_splash_screen.*
 
 class SplashScreenFragment : Fragment() {
 
-    val handler = Handler()
+    private val handler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

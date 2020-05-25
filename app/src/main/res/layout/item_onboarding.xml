@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/onboarding_image"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:contentDescription="@string/become_your_own_chef"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/chef" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pt_sans_bold"
+        android:padding="@dimen/large_padding"
+        tools:text="@string/become_your_own_chef"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:id="@+id/onboarding_title"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_image"
+        android:textSize="@dimen/big_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/onboarding_content"
+        android:textColor="@android:color/darker_gray"
+        android:text="@string/lorem_ipsum_text"
+        android:lines="3"
+        android:maxLines="4"
+        android:padding="10dp"
+        android:textSize="@dimen/default_text_size"
+        android:fontFamily="@font/pt_sans_regular"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_title"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

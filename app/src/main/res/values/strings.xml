@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">recipeze</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip_text">Skip</string>
+    <string name="done_text">Done</string>
+    <string name="become_your_own_chef">Become your own chef</string>
+    <string name="lorem_ipsum_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets</string>
+    <string name="onboarding_desc_one">You have all it takes to wander into whatever culture and setting as you get exposed to various delicacies from all around the world</string>
+    <string name="onboarding_desc_two">Choose from a wide range of delicacies that have been curated carefully to ensure maximum health and reduced complications</string>
+    <string name="onboarding_desc_three">You don\'t have to see it if you are not interested, select options around a circle, and get updated feed based on it.</string>
+    <string name="let_s_go">Let\'s Go!</string>
 </resources>
