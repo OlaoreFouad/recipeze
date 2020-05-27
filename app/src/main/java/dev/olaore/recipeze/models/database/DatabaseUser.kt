@@ -27,6 +27,8 @@ data class DatabaseDiet(
 
     var name: String,
 
+    var details: String,
+
     var imageUri: Int
 
 )

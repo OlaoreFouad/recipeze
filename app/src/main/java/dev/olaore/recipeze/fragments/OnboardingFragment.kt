@@ -75,7 +75,6 @@ class OnboardingFragment : Fragment() {
             }
         }
 
-        // TODO: add indexes to the foreign keys to stop lint from complaining and preventing full table scans upon query
         // TODO: set up the db with the diets and their details, add the images to the drawables folder also, and get shit done for selecting
         // TODO: set up the cuisines data too
 
