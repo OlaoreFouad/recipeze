@@ -23,7 +23,7 @@ data class DatabaseUser(
 data class DatabaseDiet(
 
     @PrimaryKey(autoGenerate = true)
-    var id: Int,
+    var id: Int? = null,
 
     var name: String,
 
@@ -37,7 +37,7 @@ data class DatabaseDiet(
 data class DatabaseCuisine(
 
     @PrimaryKey(autoGenerate = true)
-    var id: Int,
+    var id: Int? = null,
 
     var name: String
 
