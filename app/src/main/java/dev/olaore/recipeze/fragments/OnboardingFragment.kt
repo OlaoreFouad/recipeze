@@ -75,9 +75,6 @@ class OnboardingFragment : Fragment() {
             }
         }
 
-        // TODO: set up the db with the diets and their details, add the images to the drawables folder also, and get shit done for selecting
-        // TODO: set up the cuisines data too
-
     }
 
     private fun pageSelected(selectedIndex: Int) {

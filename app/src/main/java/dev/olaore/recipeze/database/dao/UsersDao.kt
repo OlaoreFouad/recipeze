@@ -26,10 +26,10 @@ interface UsersDao {
     suspend fun getCuisinesForUser(id: Int): String
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addDiet(diet: DatabaseDiet)
+    suspend fun addDiet(vararg diet: DatabaseDiet)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addCuisine(cuisine: DatabaseCuisine)
+    suspend fun addCuisine(vararg cuisine: DatabaseCuisine)
 
     @Query("SELECT * FROM search_results_table ORDER BY dateAdded DESC")
     fun getSearchResults(): LiveData<List<SearchResult>>
