@@ -7,15 +7,9 @@
     tools:context=".fragments.SplashScreenFragment">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/app_logo"
-        android:textSize="@dimen/large_text_size"
-        android:textStyle="bold"
         android:transitionName="app_name"
         android:layout_gravity="center"
-        android:fontFamily="@font/balsamiq_bold"
-        android:textColor="@color/colorPrimaryDark"
-        android:text="@string/app_name"/>
+        style="@style/AppLogoStyle"/>
 
 </FrameLayout>

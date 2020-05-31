@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.navigation.findNavController
 import androidx.viewpager.widget.ViewPager
 
 import dev.olaore.recipeze.R
@@ -73,6 +74,10 @@ class OnboardingFragment : Fragment() {
                     1 -> onboardingViewPager.currentItem = 2
                 }
             }
+        }
+
+        binding.goButton.setOnClickListener {
+            it.findNavController().navigate(R.id.action_onboardingFragment_to_registerFragment)
         }
 
     }

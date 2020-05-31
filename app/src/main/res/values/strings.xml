@@ -9,4 +9,7 @@
     <string name="onboarding_desc_two">Choose from a wide range of delicacies that have been curated carefully to ensure maximum health and reduced complications</string>
     <string name="onboarding_desc_three">You don\'t have to see it if you are not interested, select options around a circle, and get updated feed based on it.</string>
     <string name="let_s_go">Let\'s Go!</string>
+    <string name="username_text">Username</string>
+    <string name="pin_text">PIN (4 characters)</string>
+    <string name="register_text">Register</string>
 </resources>
