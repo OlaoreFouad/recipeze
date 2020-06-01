@@ -16,8 +16,8 @@ interface UsersDao {
     @Update
     suspend fun updateUser(user: DatabaseUser)
 
-    @Query("SELECT * FROM users_table WHERE pin = :pin")
-    suspend fun getUser(pin: String): DatabaseUser
+    @Query("SELECT * FROM users_table WHERE pin = :pin AND username = :username")
+    suspend fun getUser(username: String, pin: String): LiveData<DatabaseUser?>
 
     @Query("SELECT diets from users_table WHERE id = :id")
     suspend fun getDietsForUser(id: Int): String
