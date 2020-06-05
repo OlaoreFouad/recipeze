@@ -8,27 +8,20 @@ import androidx.lifecycle.viewModelScope
 import androidx.room.Database
 import dev.olaore.recipeze.database.getUsersDatabase
 import dev.olaore.recipeze.models.database.DatabaseUser
+import dev.olaore.recipeze.models.domain.User
 import dev.olaore.recipeze.repositories.UsersRepository
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(val app: Application) : AndroidViewModel(app) {
 
-    private val usersDatabase = getUsersDatabase(app)
-    private val usersRepository = UsersRepository(usersDatabase)
+    private val user = User()
 
-    private val _user = MutableLiveData<DatabaseUser>()
-    val user: LiveData<DatabaseUser>
-        get() = _user
-
-    suspend fun getUser(): LiveData<DatabaseUser> {
-        viewModelScope.launch {
-        }
+    fun createUser(username: String, pin: String) {
+        user.username = username
+        user.pin = pin
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelScope.cancel()
-    }
+    fun getUser() = user
 
 }

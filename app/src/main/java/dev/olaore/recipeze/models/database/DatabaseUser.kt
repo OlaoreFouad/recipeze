@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class DatabaseUser(
 
     @PrimaryKey(autoGenerate = true)
-    var id: Int,
+    var id: Int = 0,
 
     var username: String,
 
