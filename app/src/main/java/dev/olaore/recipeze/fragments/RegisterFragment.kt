@@ -10,11 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
+import androidx.navigation.findNavController
 
-import dev.olaore.recipeze.R
 import dev.olaore.recipeze.databinding.FragmentRegisterBinding
 import dev.olaore.recipeze.viewmodels.RegisterViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -52,7 +55,7 @@ class RegisterFragment : Fragment(), TextWatcher {
         var username = binding.usernameInput.text.toString()
         var pin = binding.pinInput.text.toString()
 
-        viewModel.createUser(username, pin)
+        viewModel.updateUser(username, pin)
 
         binding.registerButton.isEnabled = !username.isNullOrBlank() && pin.length == 4
     }
@@ -62,9 +65,15 @@ class RegisterFragment : Fragment(), TextWatcher {
         val focusedView: View? = requireActivity().currentFocus
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        focusedView?.let { imm.hideSoftInputFromWindow(it.windowToken, 0) }
-
-        binding.registerProgressBar.visibility = View.VISIBLE
+        focusedView?.let {
+            imm.hideSoftInputFromWindow(it.windowToken, 0)
+            binding.registerProgressBar.visibility = View.VISIBLE
+            val uiScope = CoroutineScope(Dispatchers.Main)
+            uiScope.launch {
+                delay(1500)
+                it.findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToPreferencesFragment(user))
+            }
+        }
     }
 
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

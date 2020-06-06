@@ -1,5 +1,9 @@
 package dev.olaore.recipeze.models.domain
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class User(
     var username: String? = "",
 
@@ -8,4 +12,4 @@ data class User(
     var cuisines: String = "",
 
     var diets: String = ""
-)
+) : Parcelable

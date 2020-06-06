@@ -31,6 +31,12 @@ interface UsersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCuisine(vararg cuisine: DatabaseCuisine)
 
+    @Query("SELECT * FROM diets_table")
+    fun getStoredDiets(): LiveData<List<DatabaseDiet>>
+
+    @Query("SELECT * FROM cuisines_table")
+    fun getStoredCuisines(): LiveData<List<DatabaseCuisine>>
+
     @Query("SELECT * FROM search_results_table ORDER BY dateAdded DESC")
     fun getSearchResults(): LiveData<List<SearchResult>>
 

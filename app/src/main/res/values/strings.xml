@@ -12,4 +12,8 @@
     <string name="username_text">Username</string>
     <string name="pin_text">PIN (4 characters)</string>
     <string name="register_text">Register</string>
+    <string name="your_preferred_diets_text">Your Preferred Diets</string>
+    <string name="your_preferred_cuisines_text">Your Preferred Cuisines</string>
+    <string name="preference_name_placeholder">Preference Name</string>
+    <string name="save_text">Save</string>
 </resources>

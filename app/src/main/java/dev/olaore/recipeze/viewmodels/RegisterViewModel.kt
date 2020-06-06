@@ -17,7 +17,7 @@ class RegisterViewModel(val app: Application) : AndroidViewModel(app) {
 
     private val user = User()
 
-    fun createUser(username: String, pin: String) {
+    fun updateUser(username: String, pin: String) {
         user.username = username
         user.pin = pin
     }
