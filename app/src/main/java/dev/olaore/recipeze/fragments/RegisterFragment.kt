@@ -1,5 +1,6 @@
 package dev.olaore.recipeze.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 
@@ -36,6 +38,7 @@ class RegisterFragment : Fragment(), TextWatcher {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.apply {
             usernameInput.setText(viewModel.getUser().username)
             pinInput.setText(viewModel.getUser().pin)
@@ -54,9 +57,14 @@ class RegisterFragment : Fragment(), TextWatcher {
         binding.registerButton.isEnabled = !username.isNullOrBlank() && pin.length == 4
     }
 
-    fun onRegister() {
+    private fun onRegister() {
         var user = viewModel.getUser()
-        Snackbar.make(binding.registerButton, "Username: ${user.username} PIN: ${user.pin}", Snackbar.LENGTH_LONG).show()
+        val focusedView: View? = requireActivity().currentFocus
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        focusedView?.let { imm.hideSoftInputFromWindow(it.windowToken, 0) }
+
+        binding.registerProgressBar.visibility = View.VISIBLE
     }
 
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
