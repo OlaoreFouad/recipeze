@@ -9,7 +9,10 @@ import dev.olaore.recipeze.models.domain.Preference
 fun saveEnabled(view: Button, currentPreferences: List<Preference>?) {
 
     currentPreferences?.let {
-        view.visibility = if (currentPreferences.isEmpty()) View.VISIBLE else View.GONE
+
+        val selectedPreferences = it.filter { preference -> preference.isSelected }
+        view.visibility = if (selectedPreferences.isEmpty()) View.GONE else View.VISIBLE
+
     }
 
 }

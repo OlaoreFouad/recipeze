@@ -45,7 +45,7 @@ class UsersRepository(val database: UsersDatabase) {
     suspend fun getStoredCuisines(): LiveData<List<Preference>> {
         val cuisines = withContext(ioScope.coroutineContext) { usersDao.getStoredCuisines() }
 
-        return Transformations.map(cuisines) {databaseCuisines ->
+        return Transformations.map(cuisines) { databaseCuisines ->
             databaseCuisines.asPreferenceCuisineDomainModel()
         }
     }

@@ -49,7 +49,7 @@ class PreferencesAdapter(
 
         fun bind(preference: Preference) {
             preferenceView.setBackgroundColor(
-                context.resources.getColor(if (preference.isSelected) R.color.colorPrimaryDark else android.R.color.white)
+                context.resources.getColor(if (preference.isSelected) R.color.colorPrimaryDark else R.color.colorPrimaryLight)
             )
 
             preferenceName.text = preference.name
