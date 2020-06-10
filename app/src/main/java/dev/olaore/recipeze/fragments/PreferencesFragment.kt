@@ -34,8 +34,8 @@ class PreferencesFragment : Fragment() {
         binding = FragmentPreferencesBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this).get(PreferencesViewModel::class.java)
 
-        binding.preferenceViewModel = viewModel
         binding.lifecycleOwner = this
+        binding.preferenceViewModel = viewModel
 
         preferencesAdapter = PreferencesAdapter(requireActivity())
 
