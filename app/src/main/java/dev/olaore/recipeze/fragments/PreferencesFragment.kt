@@ -54,25 +54,27 @@ class PreferencesFragment : Fragment() {
 
 //        initialize the current preference
         viewModel.currentPreference.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "Inside currentPreference observe, gon' test")
             if (it != null) {
-                Log.d(TAG, "Inside currentPreference observe, not null")
-                setUpPreferences(it)
+//                setUpPreferences(it)
             }
+        })
+
+        viewModel.diets.observe(viewLifecycleOwner, Observer {
+            Log.d(TAG, "From inside: onViewCreated: Size: ${ it.size }")
+//                preferencesAdapter.submitList(it as MutableList<Preference>)
         })
 
     }
 
     private fun setUpPreferences(currentPreferenceId: String) {
-        Log.d(TAG, "Inside setUpPreferences")
         if (currentPreferenceId == Constants.DIETS_PREFERENCE) {
             viewModel.diets.observe(viewLifecycleOwner, Observer {
-                Log.d(TAG, "Size: ${ it.size }")
-                preferencesAdapter.submitList(it as MutableList<Preference>)
+                Log.d(TAG, "Size diets: ${ it.size }")
+//                preferencesAdapter.submitList(it as MutableList<Preference>)
             })
         } else if(currentPreferenceId == Constants.CUISINES_PREFERENCE) {
             viewModel.cuisines.observe(viewLifecycleOwner, Observer {
-                preferencesAdapter.submitList(it as MutableList<Preference>)
+//                preferencesAdapter.submitList(it as MutableList<Preference>)
             })
         }
     }

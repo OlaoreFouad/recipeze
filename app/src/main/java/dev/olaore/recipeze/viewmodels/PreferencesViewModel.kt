@@ -2,6 +2,7 @@ package dev.olaore.recipeze.viewmodels
 
 import android.app.Application
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -40,14 +41,12 @@ class PreferencesViewModel(private val app: Application) : AndroidViewModel(app)
     private fun getStoredDiets() {
         viewModelScope.launch {
             _diets = usersRepository.getStoredDiets() as MutableLiveData<List<Preference>>
-            Log.d("PreferencesFragment", "Size: ${ _diets.value?.size }")
         }
     }
 
     private fun getStoredCuisines() {
         viewModelScope.launch {
             _cuisines = usersRepository.getStoredCuisines() as MutableLiveData<List<Preference>>
-            Log.d("PreferencesFragment", "Size: ${ _cuisines.value?.size }")
         }
     }
 

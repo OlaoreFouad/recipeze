@@ -1,5 +1,6 @@
 package dev.olaore.recipeze.repositories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import dev.olaore.recipeze.database.UsersDatabase
@@ -38,6 +39,7 @@ class UsersRepository(val database: UsersDatabase) {
         val diets = withContext(ioScope.coroutineContext) { usersDao.getStoredDiets() }
 
         return Transformations.map(diets) { databaseDiets ->
+            Log.d("PreferencesFragment", "Repo: Size: ${ databaseDiets.size }")
             databaseDiets.asPreferenceDietDomainModel()
         }
     }
@@ -46,6 +48,7 @@ class UsersRepository(val database: UsersDatabase) {
         val cuisines = withContext(ioScope.coroutineContext) { usersDao.getStoredCuisines() }
 
         return Transformations.map(cuisines) { databaseCuisines ->
+            Log.d("PreferencesFragment", "Repo: Size: ${ databaseCuisines.size }")
             databaseCuisines.asPreferenceCuisineDomainModel()
         }
     }
