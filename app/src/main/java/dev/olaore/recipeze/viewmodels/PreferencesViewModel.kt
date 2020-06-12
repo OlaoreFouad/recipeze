@@ -2,7 +2,6 @@ package dev.olaore.recipeze.viewmodels
 
 import android.app.Application
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +10,7 @@ import dev.olaore.recipeze.database.getUsersDatabase
 import dev.olaore.recipeze.models.domain.Preference
 import dev.olaore.recipeze.repositories.UsersRepository
 import dev.olaore.recipeze.utils.Constants
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PreferencesViewModel(private val app: Application) : AndroidViewModel(app) {
@@ -34,19 +34,32 @@ class PreferencesViewModel(private val app: Application) : AndroidViewModel(app)
     private var usersRepository = UsersRepository(getUsersDatabase(app))
 
     init {
-        getStoredDiets()
-        getStoredCuisines()
+//        getStoredDiets()
+//        getStoredCuisines()
+
+//        getStoredDietsLive()
+
     }
 
     private fun getStoredDiets() {
         viewModelScope.launch {
-            _diets = usersRepository.getStoredDiets() as MutableLiveData<List<Preference>>
+            val databaseDiets =  usersRepository.getStoredDiets()
+            Log.d("PreferencesFragment", "Database Diets Size: ${ databaseDiets.size }")
         }
+    }
+
+    fun getStoredDietsLive() : LiveData<List<Preference>>? {
+        var livediets: LiveData<List<Preference>>? = null
+        viewModelScope.launch {
+            livediets = usersRepository.getStoredDietsLive()
+        }
+
+        return livediets
     }
 
     private fun getStoredCuisines() {
         viewModelScope.launch {
-            _cuisines = usersRepository.getStoredCuisines() as MutableLiveData<List<Preference>>
+            _cuisines.value = usersRepository.getStoredCuisines().value
         }
     }
 

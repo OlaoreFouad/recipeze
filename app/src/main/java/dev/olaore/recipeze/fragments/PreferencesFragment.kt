@@ -59,9 +59,8 @@ class PreferencesFragment : Fragment() {
             }
         })
 
-        viewModel.diets.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "From inside: onViewCreated: Size: ${ it.size }")
-//                preferencesAdapter.submitList(it as MutableList<Preference>)
+        viewModel.getStoredDietsLive()?.observe(viewLifecycleOwner, Observer {
+            Log.d(TAG, "Size using stored livediets: ${ it.size }")
         })
 
     }

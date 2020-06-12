@@ -35,11 +35,16 @@ class UsersRepository(val database: UsersDatabase) {
         }
     }
 
-    suspend fun getStoredDiets(): LiveData<List<Preference>> {
+    suspend fun getStoredDiets(): List<Preference> {
         val diets = withContext(ioScope.coroutineContext) { usersDao.getStoredDiets() }
 
+        return diets.asPreferenceDietDomainModel()
+    }
+
+    suspend fun getStoredDietsLive(): LiveData<List<Preference>> {
+        val diets = withContext(ioScope.coroutineContext) { usersDao.getStoredDietsLive() }
+
         return Transformations.map(diets) { databaseDiets ->
-            Log.d("PreferencesFragment", "Repo: Size: ${ databaseDiets.size }")
             databaseDiets.asPreferenceDietDomainModel()
         }
     }
@@ -48,7 +53,6 @@ class UsersRepository(val database: UsersDatabase) {
         val cuisines = withContext(ioScope.coroutineContext) { usersDao.getStoredCuisines() }
 
         return Transformations.map(cuisines) { databaseCuisines ->
-            Log.d("PreferencesFragment", "Repo: Size: ${ databaseCuisines.size }")
             databaseCuisines.asPreferenceCuisineDomainModel()
         }
     }
