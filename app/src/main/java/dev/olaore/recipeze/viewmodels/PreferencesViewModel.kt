@@ -2,10 +2,7 @@ package dev.olaore.recipeze.viewmodels
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dev.olaore.recipeze.database.getUsersDatabase
 import dev.olaore.recipeze.models.domain.Preference
 import dev.olaore.recipeze.repositories.UsersRepository
@@ -15,11 +12,13 @@ import kotlinx.coroutines.launch
 
 class PreferencesViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    private var _diets = MutableLiveData<List<Preference>>()
+    private var usersRepository = UsersRepository(getUsersDatabase(app))
+
+    private var _diets = usersRepository.diets as MutableLiveData
     val diets: LiveData<List<Preference>>
         get() = _diets
 
-    private var _cuisines = MutableLiveData<List<Preference>>()
+    private var _cuisines = usersRepository.cuisines
     val cuisines: LiveData<List<Preference>>
         get() = _cuisines
 
@@ -31,36 +30,23 @@ class PreferencesViewModel(private val app: Application) : AndroidViewModel(app)
     val currentPreference: LiveData<String>
         get() = _currentPreference
 
-    private var usersRepository = UsersRepository(getUsersDatabase(app))
-
     init {
-//        getStoredDiets()
-//        getStoredCuisines()
-
-//        getStoredDietsLive()
-
     }
 
-    private fun getStoredDiets() {
-        viewModelScope.launch {
-            val databaseDiets =  usersRepository.getStoredDiets()
-            Log.d("PreferencesFragment", "Database Diets Size: ${ databaseDiets.size }")
+    fun onPreferenceSelected(position: Int) {
+        val currentPref = currentPreference.value
+        if (currentPref == Constants.DIETS_PREFERENCE) {
+            val currentValue = _diets.value
+            val pref = currentValue!![position]
+
+            pref.isSelected = !pref.isSelected
+
+            _diets.value = currentValue
+
+        } else {
+            _cuisines.value!![position].isSelected = !_cuisines.value!![position].isSelected
         }
     }
 
-    fun getStoredDietsLive() : LiveData<List<Preference>>? {
-        var livediets: LiveData<List<Preference>>? = null
-        viewModelScope.launch {
-            livediets = usersRepository.getStoredDietsLive()
-        }
-
-        return livediets
-    }
-
-    private fun getStoredCuisines() {
-        viewModelScope.launch {
-            _cuisines.value = usersRepository.getStoredCuisines().value
-        }
-    }
 
 }

@@ -3,6 +3,7 @@ package dev.olaore.recipeze.repositories
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.liveData
 import dev.olaore.recipeze.database.UsersDatabase
 import dev.olaore.recipeze.models.database.DatabaseCuisine
 import dev.olaore.recipeze.models.database.DatabaseUser
@@ -18,6 +19,14 @@ class UsersRepository(val database: UsersDatabase) {
     private val job = Job()
     private val ioScope = CoroutineScope(Dispatchers.IO + job)
 
+    val diets = Transformations.map(database.usersDao.getStoredDiets()) {
+        it.asPreferenceDietDomainModel()
+    }
+
+    val cuisines = Transformations.map(database.usersDao.getStoredCuisines()) {
+        it.asPreferenceCuisineDomainModel()
+    }
+
     suspend fun getUser(username: String, pin: String): LiveData<DatabaseUser?> {
         return withContext(ioScope.coroutineContext) {
             usersDao.getUser(
@@ -32,28 +41,6 @@ class UsersRepository(val database: UsersDatabase) {
             usersDao.addUser(
                 DatabaseUser(username = user.username!!, pin = user.pin!!, diets = user.diets, cuisines = user.cuisines)
             )
-        }
-    }
-
-    suspend fun getStoredDiets(): List<Preference> {
-        val diets = withContext(ioScope.coroutineContext) { usersDao.getStoredDiets() }
-
-        return diets.asPreferenceDietDomainModel()
-    }
-
-    suspend fun getStoredDietsLive(): LiveData<List<Preference>> {
-        val diets = withContext(ioScope.coroutineContext) { usersDao.getStoredDietsLive() }
-
-        return Transformations.map(diets) { databaseDiets ->
-            databaseDiets.asPreferenceDietDomainModel()
-        }
-    }
-
-    suspend fun getStoredCuisines(): LiveData<List<Preference>> {
-        val cuisines = withContext(ioScope.coroutineContext) { usersDao.getStoredCuisines() }
-
-        return Transformations.map(cuisines) { databaseCuisines ->
-            databaseCuisines.asPreferenceCuisineDomainModel()
         }
     }
 

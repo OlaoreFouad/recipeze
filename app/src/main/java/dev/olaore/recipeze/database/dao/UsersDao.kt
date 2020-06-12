@@ -32,10 +32,7 @@ interface UsersDao {
     fun addCuisine(vararg cuisine: DatabaseCuisine)
 
     @Query("SELECT * FROM diets_table")
-    fun getStoredDiets(): List<DatabaseDiet>
-
-    @Query("SELECT * FROM diets_table")
-    fun getStoredDietsLive(): LiveData<List<DatabaseDiet>>
+    fun getStoredDiets(): LiveData<List<DatabaseDiet>>
 
     @Query("SELECT * FROM cuisines_table")
     fun getStoredCuisines(): LiveData<List<DatabaseCuisine>>

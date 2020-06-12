@@ -13,15 +13,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import dev.olaore.recipeze.R
+import dev.olaore.recipeze.listeners.OnPreferenceInteraction
 import dev.olaore.recipeze.models.domain.Preference
 
 class PreferencesAdapter(
-    private val context: Context
+    private val context: Context,
+    private val onPreferenceInteraction: OnPreferenceInteraction
 ) : ListAdapter<Preference, PreferencesAdapter.PreferenceViewHolder>(PreferenceDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : PreferenceViewHolder
-            = PreferenceViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_preference, parent, false), context)
+            = PreferenceViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_preference, parent, false
+                ),
+            context, onPreferenceInteraction)
 
     override fun onBindViewHolder(holder: PreferenceViewHolder, position: Int) {
         val preference = getItem(position)
@@ -35,7 +41,8 @@ class PreferencesAdapter(
     class PreferenceViewHolder
         constructor(
         private val view: View,
-        private val context: Context
+        private val context: Context,
+        private val onPreferenceInteraction: OnPreferenceInteraction
     ) : RecyclerView.ViewHolder(view) {
 
         private val preferenceView = view.findViewById<View>(R.id.preference_view)
@@ -44,22 +51,26 @@ class PreferencesAdapter(
         private val preferenceMore = view.findViewById<ImageButton>(R.id.preference_more_info)
 
         init {
-            view.setOnClickListener {  }
+            view.setOnClickListener { onPreferenceInteraction.onItemClicked(adapterPosition) }
         }
 
         fun bind(preference: Preference) {
             preferenceView.setBackgroundColor(
                 context.resources.getColor(if (preference.isSelected) R.color.colorPrimaryDark else R.color.colorPrimaryLight)
             )
-
             preferenceName.text = preference.name
             preferenceCheck.setImageResource(
                 if (preference.isSelected) R.drawable.ic_check_circle_selected else R.drawable.ic_check_circle_unselected
             )
-
             view.setBackgroundResource(
                 if (preference.isSelected) R.drawable.background_preference_selected else R.drawable.background_preference_unselected
             )
+
+            if (preference.hasMore) {
+                preferenceMore.setOnClickListener { onPreferenceInteraction.onItemMoreClicked(adapterPosition) }
+                preferenceMore.visibility = View.VISIBLE
+            }
+
         }
 
     }

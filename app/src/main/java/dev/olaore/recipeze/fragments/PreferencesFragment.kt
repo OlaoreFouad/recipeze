@@ -13,6 +13,7 @@ import dev.olaore.recipeze.R
 
 import dev.olaore.recipeze.adapters.PreferencesAdapter
 import dev.olaore.recipeze.databinding.FragmentPreferencesBinding
+import dev.olaore.recipeze.listeners.OnPreferenceInteraction
 import dev.olaore.recipeze.models.domain.Preference
 import dev.olaore.recipeze.utils.Constants
 import dev.olaore.recipeze.viewmodels.PreferencesViewModel
@@ -37,7 +38,16 @@ class PreferencesFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.preferenceViewModel = viewModel
 
-        preferencesAdapter = PreferencesAdapter(requireActivity())
+        preferencesAdapter = PreferencesAdapter(requireActivity(),
+            object : OnPreferenceInteraction {
+                override fun onItemClicked(position: Int) {
+                    viewModel.onPreferenceSelected(position)
+                }
+
+                override fun onItemMoreClicked(position: Int) {
+                    Log.d(TAG, "More Item at position: ${ position }")
+                }
+            })
 
         //  Set up the recyclerview
         binding.preferencesRecyclerView.apply {
@@ -55,12 +65,8 @@ class PreferencesFragment : Fragment() {
 //        initialize the current preference
         viewModel.currentPreference.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-//                setUpPreferences(it)
+                setUpPreferences(it)
             }
-        })
-
-        viewModel.getStoredDietsLive()?.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "Size using stored livediets: ${ it.size }")
         })
 
     }
@@ -68,12 +74,15 @@ class PreferencesFragment : Fragment() {
     private fun setUpPreferences(currentPreferenceId: String) {
         if (currentPreferenceId == Constants.DIETS_PREFERENCE) {
             viewModel.diets.observe(viewLifecycleOwner, Observer {
-                Log.d(TAG, "Size diets: ${ it.size }")
-//                preferencesAdapter.submitList(it as MutableList<Preference>)
+                Log.d(TAG, "Change Submitted!")
+                preferencesAdapter.submitList(it as MutableList<Preference>)
+                preferencesAdapter.notifyDataSetChanged()
             })
         } else if(currentPreferenceId == Constants.CUISINES_PREFERENCE) {
             viewModel.cuisines.observe(viewLifecycleOwner, Observer {
-//                preferencesAdapter.submitList(it as MutableList<Preference>)
+                Log.d(TAG, "Change Submitted!")
+                preferencesAdapter.submitList(it as MutableList<Preference>)
+                preferencesAdapter.notifyDataSetChanged()
             })
         }
     }
