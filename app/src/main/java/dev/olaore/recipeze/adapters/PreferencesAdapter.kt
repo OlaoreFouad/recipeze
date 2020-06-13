@@ -79,7 +79,7 @@ class PreferencesAdapter(
 
 class PreferenceDiffUtil : DiffUtil.ItemCallback<Preference>() {
     override fun areItemsTheSame(oldItem: Preference, newItem: Preference): Boolean {
-        return oldItem.name == newItem.name
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: Preference, newItem: Preference): Boolean {

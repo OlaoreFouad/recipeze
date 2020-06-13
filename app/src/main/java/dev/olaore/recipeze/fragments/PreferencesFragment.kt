@@ -51,7 +51,6 @@ class PreferencesFragment : Fragment() {
 
         //  Set up the recyclerview
         binding.preferencesRecyclerView.apply {
-            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireActivity())
             adapter = preferencesAdapter
         }
@@ -74,14 +73,12 @@ class PreferencesFragment : Fragment() {
     private fun setUpPreferences(currentPreferenceId: String) {
         if (currentPreferenceId == Constants.DIETS_PREFERENCE) {
             viewModel.diets.observe(viewLifecycleOwner, Observer {
-                Log.d(TAG, "Change Submitted!")
-                preferencesAdapter.submitList(it as MutableList<Preference>)
+                preferencesAdapter.submitList(it.toMutableList())
                 preferencesAdapter.notifyDataSetChanged()
             })
         } else if(currentPreferenceId == Constants.CUISINES_PREFERENCE) {
             viewModel.cuisines.observe(viewLifecycleOwner, Observer {
-                Log.d(TAG, "Change Submitted!")
-                preferencesAdapter.submitList(it as MutableList<Preference>)
+                preferencesAdapter.submitList(it.toMutableList())
                 preferencesAdapter.notifyDataSetChanged()
             })
         }

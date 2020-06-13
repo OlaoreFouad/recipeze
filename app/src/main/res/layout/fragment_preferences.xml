@@ -47,6 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:onClick="@{ () -> preferenceViewModel.onAllPreferencesSelected() }"
                     android:src="@{ preferenceViewModel.allSelected ? @drawable/ic_check_circle_selected : @drawable/ic_check_circle_unselected }"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -70,15 +71,16 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_padding"
             android:id="@+id/save_button"
-            android:enabled="false"
             android:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="@dimen/large_padding"
             android:textColor="@android:color/white"
             android:textAllCaps="false"
+            android:onClick="@{ () -> preferenceViewModel.onSaveOrFinish() }"
             saveEnabled="@{ preferenceViewModel.currentPreference == Constants.DIETS_PREFERENCE ? preferenceViewModel.diets : preferenceViewModel.cuisines }"
             android:textSize="@dimen/default_text_size"
-            android:text="@string/save_text" />
+            android:text="@{ preferenceViewModel.currentPreference == Constants.DIETS_PREFERENCE ? @string/save_text : @string/finish_text }"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -16,4 +16,5 @@
     <string name="your_preferred_cuisines_text">Your Preferred Cuisines</string>
     <string name="preference_name_placeholder">Preference Name</string>
     <string name="save_text">Save</string>
+    <string name="finish_text">Finish</string>
 </resources>
