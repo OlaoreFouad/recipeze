@@ -17,4 +17,5 @@
     <string name="preference_name_placeholder">Preference Name</string>
     <string name="save_text">Save</string>
     <string name="finish_text">Finish</string>
+    <string name="vegetarian">Vegetarian</string>
 </resources>

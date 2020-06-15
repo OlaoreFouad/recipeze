@@ -1,11 +1,16 @@
 package dev.olaore.recipeze.fragments
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +31,7 @@ class PreferencesFragment : Fragment() {
     private lateinit var binding: FragmentPreferencesBinding
     private lateinit var viewModel: PreferencesViewModel
     private lateinit var preferencesAdapter: PreferencesAdapter
+    private lateinit var preferenceMoreDialog: Dialog
     private val TAG = "PreferencesFragment"
 
     override fun onCreateView(
@@ -45,7 +51,8 @@ class PreferencesFragment : Fragment() {
                 }
 
                 override fun onItemMoreClicked(position: Int) {
-                    Log.d(TAG, "More Item at position: ${ position }")
+                    val preference = preferencesAdapter.currentList[position]
+                    showDialog(preference)
                 }
             })
 
@@ -82,6 +89,23 @@ class PreferencesFragment : Fragment() {
                 preferencesAdapter.notifyDataSetChanged()
             })
         }
+    }
+
+    private fun showDialog(preference: Preference) {
+        preferenceMoreDialog = Dialog(requireContext())
+        preferenceMoreDialog.setContentView(R.layout.popup_preference_details)
+
+        val closeButton = preferenceMoreDialog.findViewById<ImageView>(R.id.close_dialog_image)
+        val titleText = preferenceMoreDialog.findViewById<TextView>(R.id.preference_details_title)
+        val shalayeText = preferenceMoreDialog.findViewById<TextView>(R.id.preference_details_shalaye)
+
+        titleText.text = preference.name
+        shalayeText.text = preference.details
+
+        closeButton.setOnClickListener { preferenceMoreDialog.dismiss() }
+        preferenceMoreDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        preferenceMoreDialog.show()
+
     }
 
 }
