@@ -17,6 +17,6 @@ data class Preference(
 
     constructor(preference: DatabaseDiet): this(preference.name, true, details = preference.details, imageUri = preference.imageUri)
 
-    constructor(preference: DatabaseCuisine): this(preference.name)
+    constructor(preference: DatabaseCuisine): this(preference.name, false)
 
 }

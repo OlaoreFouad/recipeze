@@ -55,6 +55,7 @@ class PreferencesAdapter(
         }
 
         fun bind(preference: Preference) {
+            Log.d("PreferencesAdapter", "Preference: ${ preference.hasMore }")
             preferenceView.setBackgroundColor(
                 context.resources.getColor(if (preference.isSelected) R.color.colorPrimaryDark else R.color.colorPrimaryLight)
             )
