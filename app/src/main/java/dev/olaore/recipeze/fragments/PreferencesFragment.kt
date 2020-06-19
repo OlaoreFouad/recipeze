@@ -20,6 +20,7 @@ import dev.olaore.recipeze.adapters.PreferencesAdapter
 import dev.olaore.recipeze.databinding.FragmentPreferencesBinding
 import dev.olaore.recipeze.listeners.OnPreferenceInteraction
 import dev.olaore.recipeze.models.domain.Preference
+import dev.olaore.recipeze.models.domain.User
 import dev.olaore.recipeze.utils.Constants
 import dev.olaore.recipeze.viewmodels.PreferencesViewModel
 
@@ -34,6 +35,8 @@ class PreferencesFragment : Fragment() {
     private lateinit var preferenceMoreDialog: Dialog
     private val TAG = "PreferencesFragment"
 
+    private lateinit var user: User
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,6 +46,9 @@ class PreferencesFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.preferenceViewModel = viewModel
+
+        user = PreferencesFragmentArgs.fromBundle(requireArguments()).user
+        viewModel.patchUser(user)
 
         preferencesAdapter = PreferencesAdapter(requireActivity(),
             object : OnPreferenceInteraction {
@@ -67,6 +73,14 @@ class PreferencesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        listen for changes in the registration status, if this returns true, navigate to the main screen and close this very one and every other
+//        fragment in the back stack
+        viewModel.registrationStatus.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                // navigate to the main screen
+            }
+        })
 
 //        initialize the current preference
         viewModel.currentPreference.observe(viewLifecycleOwner, Observer {

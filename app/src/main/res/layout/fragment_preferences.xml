@@ -79,7 +79,7 @@
             android:onClick="@{ () -> preferenceViewModel.onSaveOrFinish() }"
             saveEnabled="@{ preferenceViewModel.currentPreference == Constants.DIETS_PREFERENCE ? preferenceViewModel.diets : preferenceViewModel.cuisines }"
             android:textSize="@dimen/default_text_size"
-            android:text="@{ preferenceViewModel.currentPreference == Constants.DIETS_PREFERENCE ? @string/save_text : @string/finish_text }"
+            android:text="@{ preferenceViewModel.currentPreference == Constants.DIETS_PREFERENCE ? @string/finish_text : @string/save_text }"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
