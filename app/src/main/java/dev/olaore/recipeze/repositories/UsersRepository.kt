@@ -9,6 +9,7 @@ import dev.olaore.recipeze.models.database.DatabaseCuisine
 import dev.olaore.recipeze.models.database.DatabaseUser
 import dev.olaore.recipeze.models.domain.Preference
 import dev.olaore.recipeze.models.domain.User
+import dev.olaore.recipeze.models.mappers.asDomainModel
 import dev.olaore.recipeze.models.mappers.asPreferenceCuisineDomainModel
 import dev.olaore.recipeze.models.mappers.asPreferenceDietDomainModel
 import kotlinx.coroutines.*
@@ -27,12 +28,13 @@ class UsersRepository(val database: UsersDatabase) {
         it.asPreferenceCuisineDomainModel()
     }
 
-    suspend fun getUser(username: String, pin: String): LiveData<DatabaseUser?> {
+    val user = Transformations.map(database.usersDao.getUser()) {
+        it.asDomainModel()
+    }
+
+    suspend fun getUser(): LiveData<DatabaseUser> {
         return withContext(ioScope.coroutineContext) {
-            usersDao.getUser(
-                username,
-                pin
-            )
+            usersDao.getUser()
         }
     }
 

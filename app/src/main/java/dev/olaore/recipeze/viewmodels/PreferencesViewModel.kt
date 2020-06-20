@@ -115,11 +115,14 @@ class PreferencesViewModel(private val app: Application) : AndroidViewModel(app)
         user.diets = savedDiets
         user.cuisines = savedCuisines
 
+        // TODO: add the pin to preferences and set the authenticated flag to true
+        // TODO: add all logic to set up registration and delete all users from table then run app
+        // TODO: build pin screen
+
         viewModelScope.launch {
             usersRepository.registerUser(user)
+            _registrationStatus.value = true
         }
-
-        _registrationStatus.value = true
 
     }
 

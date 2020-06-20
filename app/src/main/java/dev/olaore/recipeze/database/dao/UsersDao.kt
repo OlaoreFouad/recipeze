@@ -16,8 +16,8 @@ interface UsersDao {
     @Update
     fun updateUser(user: DatabaseUser)
 
-    @Query("SELECT * FROM users_table WHERE pin = :pin AND username = :username")
-    fun getUser(username: String, pin: String): LiveData<DatabaseUser?>
+    @Query("SELECT * FROM users_table LIMIT 1")
+    fun getUser(): LiveData<DatabaseUser>
 
     @Query("SELECT diets from users_table WHERE id = :id")
     fun getDietsForUser(id: Int): String

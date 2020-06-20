@@ -3,8 +3,10 @@ package dev.olaore.recipeze.models.mappers
 import dev.olaore.recipeze.models.database.DatabaseCuisine
 import dev.olaore.recipeze.models.database.DatabaseDiet
 import dev.olaore.recipeze.models.database.DatabaseRecipe
+import dev.olaore.recipeze.models.database.DatabaseUser
 import dev.olaore.recipeze.models.domain.Preference
 import dev.olaore.recipeze.models.domain.Recipe
+import dev.olaore.recipeze.models.domain.User
 import dev.olaore.recipeze.models.network.NetworkRecipeSearchContainer
 import dev.olaore.recipeze.models.network.NetworkRecipeSummary
 
@@ -21,6 +23,8 @@ fun NetworkRecipeSearchContainer.asDatabaseModel(): List<DatabaseRecipe> {
         DatabaseRecipe(it, getRecipeSummary(it.id)?.summary!!)
     }
 }
+
+fun DatabaseUser.asDomainModel() = User(username, pin, cuisines, diets)
 
 fun List<DatabaseRecipe>.asDomainModel(): List<Recipe> {
     return map {

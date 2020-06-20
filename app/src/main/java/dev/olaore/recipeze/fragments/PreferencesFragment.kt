@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.olaore.recipeze.R
 
@@ -78,7 +79,7 @@ class PreferencesFragment : Fragment() {
 //        fragment in the back stack
         viewModel.registrationStatus.observe(viewLifecycleOwner, Observer {
             if (it) {
-                // navigate to the main screen
+                view.findNavController().navigate(R.id.action_preferencesFragment_to_homeFragment)
             }
         })
 
