@@ -1,6 +1,7 @@
 package dev.olaore.recipeze.database
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -25,11 +26,11 @@ abstract class UsersDatabase : RoomDatabase() {
 
 private lateinit var INSTANCE: UsersDatabase
 
-fun getUsersDatabase(application: Application): UsersDatabase {
+fun getUsersDatabase(context: Context): UsersDatabase {
 
     if (!::INSTANCE.isInitialized) {
         INSTANCE = Room.databaseBuilder(
-            application.applicationContext, UsersDatabase::class.java, "users_db"
+            context, UsersDatabase::class.java, "users_db"
         ).fallbackToDestructiveMigration().addCallback(
             object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
@@ -120,7 +121,7 @@ fun getUsersDatabase(application: Application): UsersDatabase {
                         DatabaseCuisine(name = "Latin American")
                     )
 
-                    addDataToDatabase(getUsersDatabase(application).usersDao, diets, cuisines)
+                    addDataToDatabase(getUsersDatabase(context).usersDao, diets, cuisines)
 
                 }
 

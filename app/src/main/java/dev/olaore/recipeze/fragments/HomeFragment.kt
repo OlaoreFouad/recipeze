@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 
 import dev.olaore.recipeze.R
 import dev.olaore.recipeze.databinding.FragmentHomeBinding
+import dev.olaore.recipeze.obtainViewModel
 import dev.olaore.recipeze.viewmodels.HomeViewModel
 
 /**
@@ -30,7 +31,7 @@ class HomeFragment : Fragment() {
 
         binding = FragmentHomeBinding.inflate(inflater)
 
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel = obtainViewModel(HomeViewModel::class.java)
 
         return binding.root
     }

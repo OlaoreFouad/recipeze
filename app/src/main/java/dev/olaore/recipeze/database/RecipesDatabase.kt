@@ -1,6 +1,7 @@
 package dev.olaore.recipeze.database
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -32,12 +33,12 @@ abstract class RecipesDatabase : RoomDatabase() {
 
 private lateinit var INSTANCE: RecipesDatabase
 
-fun getDatabase(application: Application): RecipesDatabase {
+fun getDatabase(context: Context): RecipesDatabase {
 
     if (!::INSTANCE.isInitialized) {
         synchronized(RecipesDatabase::class) {
             INSTANCE = Room.databaseBuilder(
-                application.applicationContext, RecipesDatabase::class.java, "recipes_db"
+                context, RecipesDatabase::class.java, "recipes_db"
             ).fallbackToDestructiveMigration().build()
         }
     }

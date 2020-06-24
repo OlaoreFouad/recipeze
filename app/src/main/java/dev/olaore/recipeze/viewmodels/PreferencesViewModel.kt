@@ -13,9 +13,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class PreferencesViewModel(private val app: Application) : AndroidViewModel(app) {
+class PreferencesViewModel(
+    private val usersRepository: UsersRepository
+) : ViewModel() {
 
-    private var usersRepository = UsersRepository(getUsersDatabase(app))
     private var savedDiets = ""
     private var savedCuisines = ""
 
@@ -120,7 +121,7 @@ class PreferencesViewModel(private val app: Application) : AndroidViewModel(app)
         // TODO: build pin screen
 
         viewModelScope.launch {
-            usersRepository.registerUser(user)
+//            usersRepository.registerUser(user)
             _registrationStatus.value = true
         }
 

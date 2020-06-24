@@ -22,6 +22,7 @@ import dev.olaore.recipeze.databinding.FragmentPreferencesBinding
 import dev.olaore.recipeze.listeners.OnPreferenceInteraction
 import dev.olaore.recipeze.models.domain.Preference
 import dev.olaore.recipeze.models.domain.User
+import dev.olaore.recipeze.obtainViewModel
 import dev.olaore.recipeze.utils.Constants
 import dev.olaore.recipeze.viewmodels.PreferencesViewModel
 
@@ -43,7 +44,7 @@ class PreferencesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPreferencesBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this).get(PreferencesViewModel::class.java)
+        viewModel = obtainViewModel(PreferencesViewModel::class.java)
 
         binding.lifecycleOwner = this
         binding.preferenceViewModel = viewModel
