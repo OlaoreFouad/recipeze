@@ -19,6 +19,9 @@ interface UsersDao {
     @Query("SELECT * FROM users_table LIMIT 1")
     fun getUser(): LiveData<DatabaseUser>
 
+    @Query("DELETE FROM users_table")
+    fun deleteAllUsers()
+
     @Query("SELECT diets from users_table WHERE id = :id")
     fun getDietsForUser(id: Int): String
 

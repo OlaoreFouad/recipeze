@@ -3,6 +3,7 @@ package dev.olaore.recipeze.fragments
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment.findNavController
 
 import dev.olaore.recipeze.R
+import dev.olaore.recipeze.utils.Prefs
 import kotlinx.android.synthetic.main.fragment_splash_screen.*
 
 class SplashScreenFragment : Fragment() {
@@ -35,13 +37,22 @@ class SplashScreenFragment : Fragment() {
             start()
         }
 
-        val extras = FragmentNavigatorExtras(app_logo to "app_name")
-
         handler.postDelayed({
-            findNavController(requireParentFragment()).navigate(
-                SplashScreenFragmentDirections.actionSplashScreenFragmentToOnboardingFragment(), extras
-            )
+            if (isAuthenticated(requireContext())) {
+                findNavController(requireParentFragment()).navigate(
+                    R.id.action_splashScreenFragment_to_homeFragment2
+                )
+            } else {
+                val extras = FragmentNavigatorExtras(app_logo to "app_name")
+                findNavController(requireParentFragment()).navigate(
+                    SplashScreenFragmentDirections.actionSplashScreenFragmentToOnboardingFragment(), extras
+                )
+            }
         }, 4500)
+    }
+
+    private fun isAuthenticated(ctx: Context): Boolean {
+        return Prefs.isAuthenticated(ctx)
     }
 
 }

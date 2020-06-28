@@ -38,6 +38,12 @@ class UsersRepository(val database: UsersDatabase) {
         }
     }
 
+    suspend fun deleteAllUsers() {
+        ioScope.launch {
+            usersDao.deleteAllUsers()
+        }
+    }
+
     suspend fun registerUser(user: User) {
         ioScope.launch {
             usersDao.addUser(

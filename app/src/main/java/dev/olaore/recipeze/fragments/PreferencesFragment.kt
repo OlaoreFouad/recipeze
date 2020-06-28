@@ -24,6 +24,7 @@ import dev.olaore.recipeze.models.domain.Preference
 import dev.olaore.recipeze.models.domain.User
 import dev.olaore.recipeze.obtainViewModel
 import dev.olaore.recipeze.utils.Constants
+import dev.olaore.recipeze.utils.Prefs
 import dev.olaore.recipeze.viewmodels.PreferencesViewModel
 
 /**
@@ -80,6 +81,7 @@ class PreferencesFragment : Fragment() {
 //        fragment in the back stack
         viewModel.registrationStatus.observe(viewLifecycleOwner, Observer {
             if (it) {
+                Prefs.authenticateUser(requireContext(), viewModel.user.pin!!)
                 view.findNavController().navigate(R.id.action_preferencesFragment_to_homeFragment)
             }
         })

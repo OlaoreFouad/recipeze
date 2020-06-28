@@ -8,6 +8,7 @@ import dev.olaore.recipeze.models.domain.Preference
 import dev.olaore.recipeze.models.domain.User
 import dev.olaore.recipeze.repositories.UsersRepository
 import dev.olaore.recipeze.utils.Constants
+import dev.olaore.recipeze.utils.Prefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -20,7 +21,7 @@ class PreferencesViewModel(
     private var savedDiets = ""
     private var savedCuisines = ""
 
-    private var user = User()
+    var user = User()
 
     private var _diets = usersRepository.diets as MutableLiveData
     val diets: LiveData<List<Preference>>
@@ -116,12 +117,10 @@ class PreferencesViewModel(
         user.diets = savedDiets
         user.cuisines = savedCuisines
 
-        // TODO: add the pin to preferences and set the authenticated flag to true
-        // TODO: add all logic to set up registration and delete all users from table then run app
         // TODO: build pin screen
 
         viewModelScope.launch {
-//            usersRepository.registerUser(user)
+            usersRepository.registerUser(user)
             _registrationStatus.value = true
         }
 
