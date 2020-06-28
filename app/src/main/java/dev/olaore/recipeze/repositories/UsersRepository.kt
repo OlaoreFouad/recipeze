@@ -9,6 +9,7 @@ import dev.olaore.recipeze.models.database.DatabaseCuisine
 import dev.olaore.recipeze.models.database.DatabaseUser
 import dev.olaore.recipeze.models.domain.Preference
 import dev.olaore.recipeze.models.domain.User
+import dev.olaore.recipeze.models.mappers.asDatabaseModel
 import dev.olaore.recipeze.models.mappers.asDomainModel
 import dev.olaore.recipeze.models.mappers.asPreferenceCuisineDomainModel
 import dev.olaore.recipeze.models.mappers.asPreferenceDietDomainModel
@@ -45,9 +46,10 @@ class UsersRepository(val database: UsersDatabase) {
     }
 
     suspend fun registerUser(user: User) {
+        Log.d("PreferencesViewModel", "$user")
         ioScope.launch {
             usersDao.addUser(
-                DatabaseUser(username = user.username!!, pin = user.pin!!, diets = user.diets, cuisines = user.cuisines)
+                user.asDatabaseModel()
             )
         }
     }

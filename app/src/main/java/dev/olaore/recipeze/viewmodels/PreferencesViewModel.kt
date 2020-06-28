@@ -99,11 +99,14 @@ class PreferencesViewModel(
             _currentPreference.value = Constants.DIETS_PREFERENCE
             _allSelected.value = false
 
+//            Log.d("PreferencesViewModel", savedCuisines)
+
         } else if (currentPreference.value == Constants.DIETS_PREFERENCE) {
             savedDiets = _diets.value?.filter { it.isSelected }?.joinToString(
                 separator = ","
             ) { it.name }!!
 
+//            Log.d("PreferencesViewModel", savedCuisines)
             registerUser()
         }
     }
@@ -118,6 +121,7 @@ class PreferencesViewModel(
         user.cuisines = savedCuisines
 
         // TODO: build pin screen
+        Log.d("PreferencesViewModel", "$user")
 
         viewModelScope.launch {
             usersRepository.registerUser(user)

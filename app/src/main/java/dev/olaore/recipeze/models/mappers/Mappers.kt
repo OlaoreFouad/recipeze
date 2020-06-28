@@ -24,7 +24,9 @@ fun NetworkRecipeSearchContainer.asDatabaseModel(): List<DatabaseRecipe> {
     }
 }
 
-fun DatabaseUser.asDomainModel() = User(username, pin, cuisines, diets)
+fun DatabaseUser.asDomainModel() = User(id, username, pin, cuisines, diets)
+
+fun User.asDatabaseModel() = DatabaseUser(username = username!!, diets = diets, cuisines = cuisines, pin = pin!!)
 
 fun List<DatabaseRecipe>.asDomainModel(): List<Recipe> {
     return map {
