@@ -40,7 +40,7 @@ class SplashScreenFragment : Fragment() {
         handler.postDelayed({
             if (isAuthenticated(requireContext())) {
                 findNavController(requireParentFragment()).navigate(
-                    R.id.action_splashScreenFragment_to_homeFragment2
+                    R.id.action_splashScreenFragment_to_pinFragment
                 )
             } else {
                 val extras = FragmentNavigatorExtras(app_logo to "app_name")

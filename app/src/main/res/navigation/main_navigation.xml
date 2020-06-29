@@ -16,8 +16,10 @@
             app:popUpTo="@id/splashScreenFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_splashScreenFragment_to_homeFragment2"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_splashScreenFragment_to_pinFragment"
+            app:destination="@id/pinFragment"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
@@ -54,4 +56,14 @@
         android:id="@+id/homeFragment"
         android:name="dev.olaore.recipeze.fragments.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/pinFragment"
+        android:name="dev.olaore.recipeze.fragments.PinFragment"
+        android:label="PinFragment" >
+        <action
+            android:id="@+id/action_pinFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/pinFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
