@@ -18,6 +18,7 @@ class ViewModelFactory(
         return when (modelClass) {
             HomeViewModel::class.java -> HomeViewModel(usersRepository, recipesRepository)
             PreferencesViewModel::class.java -> PreferencesViewModel(usersRepository)
+            PinViewModel::class.java -> PinViewModel(usersRepository)
             else -> {
                 IllegalArgumentException("ViewModel class must be part of recognized viewmodels for the factory")
             }

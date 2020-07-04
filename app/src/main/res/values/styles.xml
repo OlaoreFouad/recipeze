@@ -15,6 +15,11 @@
 		<item name="android:layout_marginRight">3dp</item>
 	</style>
 
+    <style name="Indicator.More">
+        <item name="android:layout_marginLeft">9dp</item>
+        <item name="android:layout_marginRight">9dp</item>
+    </style>
+
     <style name="AppLogoStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

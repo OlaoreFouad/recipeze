@@ -1,20 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="currentPin"
+            type="String" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="389dp"
+        android:layout_height="777dp"
+        android:background="@color/colorPinFragment"
         tools:context=".fragments.PinFragment">
 
         <TextView
+            android:id="@+id/enter_pin_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/balsamiq_bold"
+            android:text="@string/enter_pin_text"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/pin_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/enter_pin_heading">
+
+            <View
+                style="@style/Indicator.More"
+                android:layout_width="@dimen/indicator_size"
+                android:layout_height="@dimen/indicator_size"
+                android:background="@{ currentPin.length() > 0 ? @drawable/pin_indicator_filled : @drawable/pin_indicator_outlined }"
+                tools:background="@drawable/pin_indicator_filled" />
+
+            <View
+                style="@style/Indicator.More"
+                android:layout_width="@dimen/indicator_size"
+                android:layout_height="@dimen/indicator_size"
+                android:background="@{ currentPin.length() >= 2 ? @drawable/pin_indicator_filled : @drawable/pin_indicator_outlined }"
+                tools:background="@drawable/pin_indicator_filled" />
+
+            <View
+                style="@style/Indicator.More"
+                android:layout_width="@dimen/indicator_size"
+                android:layout_height="@dimen/indicator_size"
+                android:background="@{ currentPin.length() >= 3 ? @drawable/pin_indicator_filled : @drawable/pin_indicator_outlined }"
+                tools:background="@drawable/pin_indicator_outlined" />
+
+            <View
+                style="@style/Indicator.More"
+                android:layout_width="@dimen/indicator_size"
+                android:layout_height="@dimen/indicator_size"
+                android:background="@{ currentPin.length() >= 4 ? @drawable/pin_indicator_filled : @drawable/pin_indicator_outlined }"
+                tools:background="@drawable/pin_indicator_outlined" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/mid_screen_guideline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".4" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pin_buttons_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mid_screen_guideline"
+            app:spanCount="3"
+            tools:listitem="@layout/item_pin_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

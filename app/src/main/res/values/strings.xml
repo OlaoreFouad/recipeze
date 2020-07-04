@@ -18,4 +18,6 @@
     <string name="save_text">Save</string>
     <string name="finish_text">Finish</string>
     <string name="vegetarian">Vegetarian</string>
+    <string name="enter_pin_text">Enter PIN</string>
+    <string name="backspace">&#9447;</string>
 </resources>
