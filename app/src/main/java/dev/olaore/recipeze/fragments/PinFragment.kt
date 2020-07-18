@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 
 import dev.olaore.recipeze.R
@@ -40,6 +41,9 @@ class PinFragment : Fragment(), OnPinButtonClicked {
                 viewModel.pin = it.pin!!
             }
         })
+        CoroutineScope(Dispatchers.IO).launch {
+            reInitializePin(viewModel.providedPin)
+        }
 
         return binding.root
     }
@@ -56,13 +60,11 @@ class PinFragment : Fragment(), OnPinButtonClicked {
     override fun onClick(value: String, isBackspace: Boolean) {
 
         if (isBackspace && typedPin.isNotEmpty()) {
-
             typedPin = if (typedPin.length == 1) {
                 ""
             } else {
                 typedPin.substring(0, typedPin.length - 1)
             }
-
             binding.currentPin = typedPin
             viewModel.providedPin = typedPin
             return
@@ -80,24 +82,30 @@ class PinFragment : Fragment(), OnPinButtonClicked {
         }
     }
 
-    // do pin checking here
     private suspend fun checkPin() {
         delay(750)
         Log.d("PinFragment", "${ viewModel.pin } ${ viewModel.providedPin }")
         if (viewModel.isEqual()) {
-            Log.d("PinFragment", "Pin is equal and is good to go")
-            // add navigation logic here
+            navigate()
         } else {
             vibrate(requireView())
-            reInitializePin()
+            reInitializePin("")
         }
     }
 
-    private suspend fun reInitializePin() {
+    private suspend fun navigate() {
         withContext(Dispatchers.Main) {
-            typedPin = ""
-            binding.currentPin = ""
-            viewModel.providedPin = ""
+            findNavController().navigate(
+                PinFragmentDirections.actionPinFragmentToHomeFragment()
+            )
+        }
+    }
+
+    private suspend fun reInitializePin(value: String) {
+        withContext(Dispatchers.Main) {
+            typedPin = value
+            binding.currentPin = value
+            viewModel.providedPin = value
         }
     }
 
