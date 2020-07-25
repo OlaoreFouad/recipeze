@@ -6,3 +6,11 @@ import android.view.View
 fun vibrate(view: View) {
     view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
 }
+
+object Utils {
+
+    const val BASE_URL = "https://api.spoonacular.com/recipes/"
+//    add your API_KEY here
+    const val API_KEY = "eb628949d598445b993e2f98d75e22ad"
+
+}

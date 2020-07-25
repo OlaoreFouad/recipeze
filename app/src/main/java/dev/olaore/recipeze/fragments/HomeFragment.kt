@@ -43,6 +43,11 @@ class HomeFragment : Fragment() {
             Log.d(TAG, "$it")
         })
 
+        viewModel.randomRecipes.observe(viewLifecycleOwner, Observer {
+            Log.d(TAG, "Here?")
+            Log.d(TAG, "Recipes Size: ${ it.recipes.size }")
+        })
+
     }
 
 

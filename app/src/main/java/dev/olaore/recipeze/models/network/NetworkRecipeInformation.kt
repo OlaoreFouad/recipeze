@@ -6,6 +6,7 @@ data class NetworkRecipeInformation(
     var image: String,
     var readyInMinutes: Int,
     var dishTypes: List<String>,
+    var sourceName: String,
     var extendedIngredients: List<NetworkRecipeIngredient>
 )
 
