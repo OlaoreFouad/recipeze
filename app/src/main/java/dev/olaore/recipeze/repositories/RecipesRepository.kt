@@ -14,27 +14,22 @@ import kotlinx.coroutines.launch
 class RecipesRepository(val database: RecipesDatabase) {
 
     private val ioScope = CoroutineScope(Dispatchers.IO)
-    lateinit var recipes: LiveData<NetworkRecipeRandomContainer>
-
-    init {
-        ioScope.launch {
-            recipes = getRandomRecipes("ALL", 10)
-        }
-    }
 
     suspend fun getRandomRecipes(tags: String, number: Int): LiveData<NetworkRecipeRandomContainer> {
         val withTag = tags != "ALL"
 
         return liveData {
             val tag = "HomeFragment"
+
             Log.d(tag, "Here? - in the repo")
-            if (!withTag) {
+            val result = if (!withTag) {
                 Network.recipesService.getRandomRecipes(number, Utils.API_KEY)
             } else {
                 Network.recipesService.getRandomRecipesWithTag(tags, number, Utils.API_KEY)
             }
+            Log.d(tag, "Here? - in the repo - ${ result.recipes.size }")
+            emit(result)
         }
-
     }
 
 

@@ -19,9 +19,15 @@ class HomeViewModel(
     val user: LiveData<User>
         get() = _user
 
-    private val _randomRecipes = recipesRepository.recipes
+    private var _randomRecipes: LiveData<NetworkRecipeRandomContainer>? = null
     val randomRecipes: LiveData<NetworkRecipeRandomContainer>
-        get() = _randomRecipes
+        get() = _randomRecipes!!
+
+    init {
+        viewModelScope.launch {
+            _randomRecipes = recipesRepository.getRandomRecipes("ALL", 10)
+        }
+    }
 
 
 }
