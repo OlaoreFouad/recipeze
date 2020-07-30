@@ -20,4 +20,6 @@
     <string name="vegetarian">Vegetarian</string>
     <string name="enter_pin_text">Enter PIN</string>
     <string name="backspace">&#9447;</string>
+    <string name="app_name_caps">Recipeze</string>
+    <string name="all_text">All</string>
 </resources>
