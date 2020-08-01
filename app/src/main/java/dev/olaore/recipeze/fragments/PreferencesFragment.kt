@@ -1,6 +1,7 @@
 package dev.olaore.recipeze.fragments
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.olaore.recipeze.R
+import dev.olaore.recipeze.RecipezeActivity
 
 import dev.olaore.recipeze.adapters.PreferencesAdapter
 import dev.olaore.recipeze.databinding.FragmentPreferencesBinding
@@ -82,7 +84,8 @@ class PreferencesFragment : Fragment() {
         viewModel.registrationStatus.observe(viewLifecycleOwner, Observer {
             if (it) {
                 Prefs.authenticateUser(requireContext(), viewModel.user.pin!!)
-                view.findNavController().navigate(R.id.action_preferencesFragment_to_homeFragment)
+                startActivity(Intent(requireActivity(), RecipezeActivity::class.java))
+                requireActivity().finish()
             }
         })
 

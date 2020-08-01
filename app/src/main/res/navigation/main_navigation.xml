@@ -48,22 +48,9 @@
         <argument
             android:name="user"
             app:argType="dev.olaore.recipeze.models.domain.User" />
-        <action
-            android:id="@+id/action_preferencesFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="dev.olaore.recipeze.fragments.HomeFragment"
-        android:label="HomeFragment" />
     <fragment
         android:id="@+id/pinFragment"
         android:name="dev.olaore.recipeze.fragments.PinFragment"
-        android:label="PinFragment" >
-        <action
-            android:id="@+id/action_pinFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/pinFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+        android:label="PinFragment" />
 </navigation>

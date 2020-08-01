@@ -1,5 +1,6 @@
 package dev.olaore.recipeze.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 
 import dev.olaore.recipeze.R
+import dev.olaore.recipeze.RecipezeActivity
 import dev.olaore.recipeze.adapters.OnPinButtonClicked
 import dev.olaore.recipeze.adapters.PinButtonAdapter
 import dev.olaore.recipeze.databinding.FragmentPinBinding
@@ -95,9 +97,8 @@ class PinFragment : Fragment(), OnPinButtonClicked {
 
     private suspend fun navigate() {
         withContext(Dispatchers.Main) {
-            findNavController().navigate(
-                PinFragmentDirections.actionPinFragmentToHomeFragment()
-            )
+            startActivity(Intent(requireActivity(), RecipezeActivity::class.java))
+            requireActivity().finish()
         }
     }
 
