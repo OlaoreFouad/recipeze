@@ -7,38 +7,40 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/drawer_layout"
+        android:fitsSystemWindows="true"
         tools:context=".RecipezeActivity">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_margin="8dp"
-            android:background="@drawable/background_recipeze_toolbar"
-            android:elevation="10dp"
-            android:id="@+id/recipeze_toolbar"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/balsamiq_bold"
-                android:text="@string/app_name"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/medium_text_size" />
+            <include layout="@layout/app_bar" android:id="@+id/included_layout" />
 
-        </com.google.android.material.appbar.MaterialToolbar>
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/recipeze_fragment"
+                app:layout_constraintTop_toBottomOf="@id/included_layout"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/recipeze_navigation" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/recipeze_fragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/recipeze_navigation" />
+            app:menu="@menu/recipeze_menu"
+            android:id="@+id/recipeze_navigation_view"
+            android:fitsSystemWindows="true"
+            android:layout_gravity="start"
+            />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

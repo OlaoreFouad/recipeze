@@ -22,4 +22,10 @@
     <string name="backspace">&#9447;</string>
     <string name="app_name_caps">Recipeze</string>
     <string name="all_text">All</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_favorites">Favorites</string>
+    <string name="menu_saved_recipes">Saved Recipes</string>
+    <string name="menu_settings">Settings</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
