@@ -11,6 +11,11 @@
 		<item name="fontFamily">@font/pt_sans_regular</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="drawerArrowStyle">@style/DrawerStyle</item>
+    </style>
+    
+    <style name="DrawerStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
     </style>
 
 	<style name="Indicator">

@@ -2,6 +2,7 @@ package dev.olaore.recipeze
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
@@ -38,4 +39,15 @@ class RecipezeActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onBackPressed() {
+        drawerLayout.let {
+            if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                drawerLayout.closeDrawer(Gravity.LEFT)
+            } else {
+                super.onBackPressed()
+            }
+        }
+    }
+
 }
