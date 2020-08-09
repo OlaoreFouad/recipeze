@@ -7,6 +7,7 @@ import dev.olaore.recipeze.models.database.DatabaseUser
 import dev.olaore.recipeze.models.domain.Preference
 import dev.olaore.recipeze.models.domain.Recipe
 import dev.olaore.recipeze.models.domain.User
+import dev.olaore.recipeze.models.network.NetworkRecipeRandomContainer
 import dev.olaore.recipeze.models.network.NetworkRecipeSearchContainer
 import dev.olaore.recipeze.models.network.NetworkRecipeSummary
 
@@ -14,6 +15,14 @@ fun NetworkRecipeSearchContainer.asDomainModel(): List<Recipe> {
 
     return results.map {
         Recipe(it, getRecipeSummary(it.id)?.summary!!)
+    }
+
+}
+
+fun NetworkRecipeRandomContainer.asDomainModel(): List<Recipe> {
+
+    return recipes.map {
+        Recipe(it)
     }
 
 }

@@ -28,4 +28,6 @@
     <string name="menu_settings">Settings</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="placeholder_ready_in_minutes">Ready In: 25 Minutes</string>
+    <string name="placeholder_recipe_name">Recipe Name</string>
 </resources>

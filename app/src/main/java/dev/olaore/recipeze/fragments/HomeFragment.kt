@@ -11,10 +11,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 
 import dev.olaore.recipeze.R
+import dev.olaore.recipeze.adapters.RecipesAdapter
 import dev.olaore.recipeze.databinding.FragmentHomeBinding
+import dev.olaore.recipeze.models.domain.Recipe
 import dev.olaore.recipeze.obtainViewModel
 import dev.olaore.recipeze.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -27,6 +30,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
     private lateinit var cuisines: Array<String>
+    private lateinit var recipesAdapter: RecipesAdapter
 
     private val TAG = "HomeFragment"
 
@@ -51,10 +55,21 @@ class HomeFragment : Fragment() {
         })
 
         viewModel.randomRecipes.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "Here?")
-            Log.d(TAG, "Recipes Size: ${ it.recipes.size }")
+            if (it !== null) {
+                setUpRecipes(it)
+            }
         })
 
+    }
+
+    private fun setUpRecipes(recipes: List<Recipe>) {
+        recipesAdapter = RecipesAdapter(requireContext())
+        recipesAdapter.submitList(recipes)
+        recipes_list.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = recipesAdapter
+        }
     }
 
     private fun setUpChips() {
@@ -83,6 +98,8 @@ class HomeFragment : Fragment() {
             }
             Toast.makeText(requireContext(), "You just clicked ${ cuisines[checkedId - 1] }", Toast.LENGTH_LONG).show()
         }
+
+        recipes_chip_group.check(0)
 
     }
 

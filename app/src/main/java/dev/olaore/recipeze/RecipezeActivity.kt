@@ -3,13 +3,20 @@ package dev.olaore.recipeze
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import dev.olaore.recipeze.fragments.FavoritesFragment
+import dev.olaore.recipeze.fragments.HomeFragment
+import dev.olaore.recipeze.fragments.SavedRecipesFragment
+import dev.olaore.recipeze.fragments.SettingsFragment
 import kotlinx.android.synthetic.main.activity_recipeze.*
 import kotlinx.android.synthetic.main.app_bar.*
 
-class RecipezeActivity : AppCompatActivity() {
+class RecipezeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
@@ -30,14 +37,31 @@ class RecipezeActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
-        navigationView.setNavigationItemSelectedListener {
-            val id = it.itemId
+        navigationView.setNavigationItemSelectedListener(this)
 
-            // make selection
-
-            false
+        if (savedInstanceState == null) {
+            onNavigationItemSelected(navigationView.menu.findItem(R.id.nav_home))
         }
 
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean  {
+
+        when(item.itemId) {
+            R.id.nav_home -> setCurrentFragment(HomeFragment(), "homeFragment")
+            R.id.nav_favorites -> setCurrentFragment(FavoritesFragment(), "favoritesFragment")
+            R.id.nav_saved_recipes -> setCurrentFragment(SavedRecipesFragment(), "savedRecipesFragment")
+            R.id.nav_settings -> setCurrentFragment(SettingsFragment(), "settingsFragment")
+        }
+
+        return true
+    }
+
+    private fun setCurrentFragment(fragment: Fragment, tag: String) {
+        drawerLayout.closeDrawer(GravityCompat.START)
+        val fragmentTxn = supportFragmentManager.beginTransaction()
+        fragmentTxn.replace(R.id.recipeze_fragment, fragment, tag)
+        fragmentTxn.commit()
     }
 
     override fun onBackPressed() {
