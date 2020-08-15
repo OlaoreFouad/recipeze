@@ -5,12 +5,12 @@ import dev.olaore.recipeze.models.network.NetworkRecipeSearch
 
 data class Recipe(
 
-    var id: Int,
-    var imageUri: String,
-    var readyInMinutes: Int,
-    var title: String,
-    var isLocal: Boolean,
-    var summary: String
+    var id: Int? = 0,
+    var imageUri: String? = "",
+    var readyInMinutes: Int? = 0,
+    var title: String? = "",
+    var isLocal: Boolean? = false,
+    var summary: String? = ""
 
 ) {
 
@@ -19,8 +19,8 @@ data class Recipe(
         false, summary
     )
 
-    constructor(randomNetRecipe: NetworkRecipeInformation) : this(
-        randomNetRecipe.id, randomNetRecipe.image, randomNetRecipe.readyInMinutes, randomNetRecipe.title, false, ""
+    constructor(randomNetRecipe: NetworkRecipeInformation?) :  this(
+        randomNetRecipe?.id, randomNetRecipe?.image, randomNetRecipe?.readyInMinutes, randomNetRecipe?.title, false, ""
     )
 
 }

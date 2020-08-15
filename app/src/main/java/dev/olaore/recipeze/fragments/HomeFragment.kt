@@ -64,6 +64,7 @@ class HomeFragment : Fragment() {
 
     private fun setUpRecipes(recipes: List<Recipe>) {
         recipesAdapter = RecipesAdapter(requireContext())
+        Log.d(TAG, "SIze: ${ recipes.size }")
         recipesAdapter.submitList(recipes)
         recipes_list.apply {
             setHasFixedSize(true)

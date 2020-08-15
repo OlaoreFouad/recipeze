@@ -21,16 +21,14 @@ class RecipesRepository(val database: RecipesDatabase) {
         val withTag = tags != "ALL"
 
         return liveData {
-            val tag = "HomeFragment"
 
-            Log.d(tag, "Here? - in the repo")
             val result = if (!withTag) {
                 Network.recipesService.getRandomRecipes(number, Utils.API_KEY).asDomainModel()
             } else {
                 Network.recipesService.getRandomRecipesWithTag(tags, number, Utils.API_KEY).asDomainModel()
             }
-            Log.d(tag, "Here? - in the repo - ${ result.size }")
             emit(result)
+
         }
     }
 
