@@ -13,7 +13,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="256dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/small_padding"
         android:layout_marginBottom="10dp"
         app:cardCornerRadius="16dp">
@@ -24,22 +24,23 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="200dp"
                 android:id="@+id/recipe_image"
+                app:layout_constraintTop_toTopOf="parent"
                 android:scaleType="fitXY"
+                tools:background="@color/colorPrimary"
                 app:imageUrl="@{ recipe.imageUri }" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"
                 android:id="@+id/recipe_name"
-                android:paddingEnd="5dp"
+                android:padding="5dp"
                 tools:text="@string/placeholder_recipe_name"
                 android:text="@{ recipe.title }"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/medium_text_size"
-                app:layout_constraintBottom_toTopOf="@id/recipe_minutes_text" />
+                app:layout_constraintTop_toBottomOf="@id/recipe_image" />
 
             <TextView
                 android:id="@+id/recipe_minutes_text"
@@ -49,7 +50,7 @@
                 tools:text="@string/placeholder_ready_in_minutes"
                 app:readyIn="@{ recipe.readyInMinutes }"
                 android:textColor="@android:color/black"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/recipe_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

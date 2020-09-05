@@ -19,12 +19,14 @@ class RecipesRepository(val database: RecipesDatabase) {
 
     suspend fun getRandomRecipes(tags: String, number: Int): LiveData<List<Recipe>> {
         val withTag = tags != "ALL"
+        Log.d("HomeViewModel", withTag.toString())
 
         return liveData {
 
             val result = if (!withTag) {
                 Network.recipesService.getRandomRecipes(number, Utils.API_KEY).asDomainModel()
             } else {
+                Log.d("HomeViewModel", "getting here. about to send the req")
                 Network.recipesService.getRandomRecipesWithTag(tags, number, Utils.API_KEY).asDomainModel()
             }
             emit(result)

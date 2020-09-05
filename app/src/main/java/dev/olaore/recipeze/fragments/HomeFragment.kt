@@ -64,13 +64,13 @@ class HomeFragment : Fragment() {
 
     private fun setUpRecipes(recipes: List<Recipe>) {
         recipesAdapter = RecipesAdapter(requireContext())
-        Log.d(TAG, "SIze: ${ recipes.size }")
-        recipesAdapter.submitList(recipes)
         recipes_list.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = recipesAdapter
         }
+        recipesAdapter.submitList(recipes)
+        Log.d(TAG, recipesAdapter.currentList.size.toString())
     }
 
     private fun setUpChips() {
@@ -94,10 +94,10 @@ class HomeFragment : Fragment() {
 
         recipes_chip_group.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == 0) {
-                Toast.makeText(requireContext(), "You just clicked All", Toast.LENGTH_LONG).show()
+                viewModel.getRandomRecipes("ALL")
                 return@setOnCheckedChangeListener
             }
-            Toast.makeText(requireContext(), "You just clicked ${ cuisines[checkedId - 1] }", Toast.LENGTH_LONG).show()
+            viewModel.getRandomRecipes(cuisines[checkedId - 1])
         }
 
         recipes_chip_group.check(0)

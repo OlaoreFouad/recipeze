@@ -30,5 +30,12 @@ class HomeViewModel(
         }
     }
 
+    fun getRandomRecipes(tags: String = "ALL") {
+        Log.d("HomeViewModel", tags)
+        viewModelScope.launch {
+            _randomRecipes = recipesRepository.getRandomRecipes(tags, 10)
+        }
+    }
+
 
 }
