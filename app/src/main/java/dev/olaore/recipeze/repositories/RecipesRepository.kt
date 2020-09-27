@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import dev.olaore.recipeze.database.RecipesDatabase
 import dev.olaore.recipeze.models.domain.Recipe
+import dev.olaore.recipeze.models.mappers.Result
 import dev.olaore.recipeze.models.mappers.asDomainModel
 import dev.olaore.recipeze.models.network.NetworkRecipeRandomContainer
 import dev.olaore.recipeze.network.Network
@@ -17,19 +18,18 @@ class RecipesRepository(val database: RecipesDatabase) {
 
     private val ioScope = CoroutineScope(Dispatchers.IO)
 
-    suspend fun getRandomRecipes(tags: String, number: Int): LiveData<List<Recipe>> {
+    suspend fun getRandomRecipes(tags: String, number: Int): LiveData<Result<List<Recipe>>> {
         val withTag = tags != "ALL"
-        Log.d("HomeViewModel", withTag.toString())
 
         return liveData {
-
+            emit(Result.LOADING(null))
             val result = if (!withTag) {
                 Network.recipesService.getRandomRecipes(number, Utils.API_KEY).asDomainModel()
             } else {
                 Log.d("HomeViewModel", "getting here. about to send the req")
                 Network.recipesService.getRandomRecipesWithTag(tags, number, Utils.API_KEY).asDomainModel()
             }
-            emit(result)
+            emit(Result.SUCCESS(result))
 
         }
     }

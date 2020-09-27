@@ -23,7 +23,7 @@ fun saveEnabled(view: Button, currentPreferences: List<Preference>?) {
 }
 
 @BindingAdapter("imageUrl")
-fun imageUrl(imageView: ImageView, url: String) {
+fun imageUrl(imageView: ImageView, url: String?) {
     Glide.with(imageView.context)
         .load(url)
         .error(R.drawable.no_image)

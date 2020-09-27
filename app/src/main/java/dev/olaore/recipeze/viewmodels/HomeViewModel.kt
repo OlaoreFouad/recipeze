@@ -9,6 +9,7 @@ import dev.olaore.recipeze.models.domain.User
 import dev.olaore.recipeze.models.network.NetworkRecipeRandomContainer
 import dev.olaore.recipeze.repositories.RecipesRepository
 import dev.olaore.recipeze.repositories.UsersRepository
+import dev.olaore.recipeze.models.mappers.Result
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -16,24 +17,21 @@ class HomeViewModel(
     private val recipesRepository: RecipesRepository
 ) : ViewModel() {
 
-    private val _user = usersRepository.user
-    val user: LiveData<User>
-        get() = _user
+    val user = usersRepository.user
 
-    private var _randomRecipes: LiveData<List<Recipe>>? = null
-    val randomRecipes: LiveData<List<Recipe>>
-        get() = _randomRecipes!!
+    var randomRecipes = MutableLiveData<Result<List<Recipe>>>()
 
     init {
+        Log.d("HomeViewModel", "Requesting for the recipes")
         viewModelScope.launch {
-            _randomRecipes = recipesRepository.getRandomRecipes("ALL", 10)
+            randomRecipes = recipesRepository.getRandomRecipes("ALL", 10) as MutableLiveData<Result<List<Recipe>>>
         }
     }
 
     fun getRandomRecipes(tags: String = "ALL") {
         Log.d("HomeViewModel", tags)
         viewModelScope.launch {
-            _randomRecipes = recipesRepository.getRandomRecipes(tags, 10)
+            randomRecipes.value = recipesRepository.getRandomRecipes(tags, 10).value
         }
     }
 

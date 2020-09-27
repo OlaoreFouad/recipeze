@@ -18,6 +18,7 @@ import dev.olaore.recipeze.R
 import dev.olaore.recipeze.adapters.RecipesAdapter
 import dev.olaore.recipeze.databinding.FragmentHomeBinding
 import dev.olaore.recipeze.models.domain.Recipe
+import dev.olaore.recipeze.models.mappers.Result
 import dev.olaore.recipeze.obtainViewModel
 import dev.olaore.recipeze.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -56,7 +57,17 @@ class HomeFragment : Fragment() {
 
         viewModel.randomRecipes.observe(viewLifecycleOwner, Observer {
             if (it !== null) {
-                setUpRecipes(it)
+                when (it) {
+                    is Result.SUCCESS -> {
+                        setUpRecipes(it.data)
+                    }
+                    is Result.ERROR -> {
+                        Toast.makeText(requireContext(), "Error occurred while getting recipes ${ it.message }", Toast.LENGTH_LONG).show()
+                    }
+                    is Result.LOADING<*> -> {
+                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         })
 
