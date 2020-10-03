@@ -4,6 +4,7 @@ import dev.olaore.recipeze.models.network.NetworkRecipeRandomContainer
 import dev.olaore.recipeze.utils.Utils
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -29,11 +30,11 @@ interface RecipesService {
     ): NetworkRecipeRandomContainer
 
     @GET("random")
-    suspend fun getRandomRecipesWithTag(
+    fun getRandomRecipesWithTag(
         @Query("tags") tags: String,
         @Query("number") number: Int,
         @Query("apiKey") key: String
-    ): NetworkRecipeRandomContainer
+    ): Call<NetworkRecipeRandomContainer>
 
 }
 

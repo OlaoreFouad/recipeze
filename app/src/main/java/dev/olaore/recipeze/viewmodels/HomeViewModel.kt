@@ -10,6 +10,8 @@ import dev.olaore.recipeze.models.network.NetworkRecipeRandomContainer
 import dev.olaore.recipeze.repositories.RecipesRepository
 import dev.olaore.recipeze.repositories.UsersRepository
 import dev.olaore.recipeze.models.mappers.Result
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -30,8 +32,8 @@ class HomeViewModel(
 
     fun getRandomRecipes(tags: String = "ALL") {
         Log.d("HomeViewModel", tags)
-        viewModelScope.launch {
-            randomRecipes.value = recipesRepository.getRandomRecipes(tags, 10).value
+        CoroutineScope(Dispatchers.IO).launch {
+            recipesRepository.refreshRecipes(tags)
         }
     }
 
