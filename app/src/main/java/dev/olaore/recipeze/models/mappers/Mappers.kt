@@ -61,4 +61,12 @@ sealed class Result<out T: Any> {
     data class SUCCESS<out T: Any>(val data: T): Result<T>()
     data class ERROR(val message: String): Result<Nothing>()
     data class LOADING<out T: Any>(val data: T? = null): Result<Nothing>()
+
+    companion object {
+        fun <T> convert(result: Result.SUCCESS<List<T>>): String {
+            return result.data.size.toString()
+        }
+    }
+
+
 }

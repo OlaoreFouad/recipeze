@@ -1,5 +1,6 @@
 package dev.olaore.recipeze.fragments
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -47,6 +48,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -59,13 +61,25 @@ class HomeFragment : Fragment() {
             if (it !== null) {
                 when (it) {
                     is Result.SUCCESS -> {
+
+                        binding.recipesList.visibility = if (it.data.isNotEmpty()) View.VISIBLE else View.GONE
+                        binding.recipezeLoader.visibility = View.INVISIBLE
+                        binding.emptyRecipezeContainer.visibility = if (it.data.isEmpty()) View.VISIBLE else View.GONE
+
                         setUpRecipes(it.data)
                     }
                     is Result.ERROR -> {
-                        Toast.makeText(requireContext(), "Error occurred while getting recipes ${ it.message }", Toast.LENGTH_LONG).show()
+                        binding.recipesList.visibility = View.GONE
+                        binding.recipezeLoader.visibility = View.INVISIBLE
+                        binding.emptyRecipezeContainer.visibility = View.VISIBLE
+
+                        binding.emptyRecipezeText.text = "Error Occurred";
+
                     }
                     is Result.LOADING<*> -> {
-                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG).show()
+                        binding.recipesList.visibility = View.GONE
+                        binding.emptyRecipezeContainer.visibility = View.GONE
+                        binding.recipezeLoader.visibility = View.VISIBLE
                     }
                 }
             }

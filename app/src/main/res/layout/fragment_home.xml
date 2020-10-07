@@ -11,39 +11,90 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.HomeFragment">
-        
+
         <HorizontalScrollView
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="match_parent"
-            android:scrollbars="none"
             android:id="@+id/horizontal_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:fillViewport="true"
             android:fitsSystemWindows="true"
-            android:layout_height="wrap_content">
+            android:scrollbars="none"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/recipes_chip_group"
                 android:layout_width="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                app:singleSelection="true"
                 android:layout_marginTop="10dp"
-                android:paddingBottom="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_height="wrap_content">
+                android:paddingBottom="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:singleSelection="true">
 
             </com.google.android.material.chip.ChipGroup>
 
         </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/horizontal_scroll_view"
             android:id="@+id/recipes_list"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:padding="@dimen/small_padding"
-            android:layout_height="0dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_scroll_view" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_scroll_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            android:id="@+id/recipeze_loader"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            android:id="@+id/empty_recipeze_container"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_scroll_view">
+
+            <ImageView
+                android:id="@+id/empty_recipeze_image"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:src="@drawable/empty_recipeze" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/it_s_a_bit_dusty_in_here"
+                android:textAlignment="center"
+                android:id="@+id/empty_recipeze_text"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/medium_text_size" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="10dp"
+                android:id="@+id/view_saved_recipes_button"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/view_saved_recipes" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

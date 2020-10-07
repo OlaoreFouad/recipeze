@@ -29,29 +29,30 @@ class RecipesRepository(val database: RecipesDatabase) {
             emit(Result.LOADING(null))
             val result = Network.recipesService.getRandomRecipes(number, Utils.API_KEY).asDomainModel()
             emit(Result.SUCCESS(result))
-
         }
     }
 
-    fun refreshRecipes(tag: String) {
+    suspend fun refreshRecipes(tag: String): LiveData<Result<List<Recipe>>> {
         val refreshedRecipes = MutableLiveData<Result<List<Recipe>>>()
+
         Network.recipesService.getRandomRecipesWithTag(tag, 10, Utils.API_KEY).enqueue(
             object : Callback<NetworkRecipeRandomContainer> {
                 override fun onResponse(
                     call: Call<NetworkRecipeRandomContainer>,
                     response: Response<NetworkRecipeRandomContainer>
                 ) {
-                    Log.d("RecipesRefresh", "Status Cod: " + response.code().toString())
-                    if (response.isSuccessful) {
-                        Log.d("RecipesRefresh", "Recipes Size: " + response.body()?.recipes?.size.toString())
-                    }
+                    refreshedRecipes.value = Result.SUCCESS(response.body()?.asDomainModel()!!)
                 }
 
                 override fun onFailure(call: Call<NetworkRecipeRandomContainer>, t: Throwable) {
-                    Log.d("RecipesRefresh", "Error Occurred: " + t.message)
+                    refreshedRecipes.value = Result.ERROR(t.message!!)
                 }
             }
         )
+
+        return refreshedRecipes
+
+
     }
 
 
