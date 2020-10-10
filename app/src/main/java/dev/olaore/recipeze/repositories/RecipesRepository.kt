@@ -23,8 +23,6 @@ class RecipesRepository(val database: RecipesDatabase) {
     private val ioScope = CoroutineScope(Dispatchers.IO)
 
     suspend fun getRandomRecipes(tags: String, number: Int): LiveData<Result<List<Recipe>>> {
-        val withTag = tags != "ALL"
-
         return liveData {
             emit(Result.LOADING(null))
             val result = Network.recipesService.getRandomRecipes(number, Utils.API_KEY).asDomainModel()
@@ -33,24 +31,12 @@ class RecipesRepository(val database: RecipesDatabase) {
     }
 
     suspend fun refreshRecipes(tag: String): LiveData<Result<List<Recipe>>> {
-        val refreshedRecipes = MutableLiveData<Result<List<Recipe>>>()
-
-        Network.recipesService.getRandomRecipesWithTag(tag, 10, Utils.API_KEY).enqueue(
-            object : Callback<NetworkRecipeRandomContainer> {
-                override fun onResponse(
-                    call: Call<NetworkRecipeRandomContainer>,
-                    response: Response<NetworkRecipeRandomContainer>
-                ) {
-                    refreshedRecipes.value = Result.SUCCESS(response.body()?.asDomainModel()!!)
-                }
-
-                override fun onFailure(call: Call<NetworkRecipeRandomContainer>, t: Throwable) {
-                    refreshedRecipes.value = Result.ERROR(t.message!!)
-                }
-            }
-        )
-
-        return refreshedRecipes
+        Log.d("OkHttp", tag)
+        return liveData {
+            emit(Result.LOADING(null))
+            val result = Network.recipesService.getRandomRecipes(10, Utils.API_KEY).asDomainModel()
+            emit(Result.SUCCESS(result))
+        }
 
 
     }

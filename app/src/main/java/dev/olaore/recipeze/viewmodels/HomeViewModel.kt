@@ -23,29 +23,9 @@ class HomeViewModel(
 
     var randomRecipes = MutableLiveData<Result<List<Recipe>>>()
 
-    init {
-        Log.d("HomeViewModel", "Requesting for the recipes")
+    fun getRandomRecipes(tags: String) {
         viewModelScope.launch {
-            randomRecipes = recipesRepository.getRandomRecipes("ALL", 10) as MutableLiveData<Result<List<Recipe>>>
-        }
-    }
-
-    fun getRandomRecipes(tags: String = "ALL") {
-
-        if (tags == "ALL") {
-            viewModelScope.launch {
-                randomRecipes = recipesRepository.getRandomRecipes("ALL", 10) as MutableLiveData<Result<List<Recipe>>>
-            }
-            return
-        }
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = recipesRepository.refreshRecipes(tags)
-            result?.let {
-                Log.d("RecipesRefresh", Result.convert(
-                    (it.value as Result.SUCCESS<List<Recipe>>)
-                ))
-            }
+            randomRecipes.value = (recipesRepository.getRandomRecipes(tags, 10) as MutableLiveData<Result<List<Recipe>>>).value
         }
     }
 

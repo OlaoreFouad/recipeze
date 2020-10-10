@@ -120,9 +120,9 @@ class HomeFragment : Fragment() {
         recipes_chip_group.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == 0) {
                 viewModel.getRandomRecipes("ALL")
-                return@setOnCheckedChangeListener
+            } else if (checkedId != 0) {
+                viewModel.getRandomRecipes(cuisines[checkedId - 1])
             }
-            viewModel.getRandomRecipes(cuisines[checkedId - 1])
         }
 
         recipes_chip_group.check(0)
