@@ -13,14 +13,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private val loggingInterceptor = Interceptor { chain ->
-    var request = chain.request()
-    Log.d("OkHttp", "Request going out...")
-    val builder: Request.Builder = request.newBuilder().addHeader("Cache-Control", "no-cache")
-    request = builder.build()
+//
+//private val loggingInterceptor = Interceptor { chain ->
+//    var request = chain.request()
+//    Log.d("OkHttp", "Request going out...")
+//    val builder: Request.Builder = request.newBuilder().addHeader("Cache-Control", "no-cache")
+//    request = builder.build()
+//
+//    chain.proceed(request)
+//}
 
-    chain.proceed(request)
-}
+private val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
 private val okHttpClient = OkHttpClient.Builder()
     .addInterceptor(loggingInterceptor)
@@ -41,7 +44,7 @@ interface RecipesService {
     ): NetworkRecipeRandomContainer
 
     @GET("random")
-    fun getRandomRecipesWithTag(
+    suspend fun getRandomRecipesWithTag(
         @Query("tags") tags: String,
         @Query("number") number: Int,
         @Query("apiKey") key: String
@@ -54,5 +57,13 @@ object Network {
     val recipesService: RecipesService by lazy {
         retrofit.create(RecipesService::class.java)
     }
+
+}
+
+class RecipesApiHelper(private val apiService: RecipesService) {
+
+    suspend fun getAllRecipes() = apiService.getRandomRecipes(10, Utils.API_KEY)
+
+    suspend fun getRecipesWithTag(tag: String) = apiService.getRandomRecipesWithTag(tag.toLowerCase(), 10, Utils.API_KEY)
 
 }

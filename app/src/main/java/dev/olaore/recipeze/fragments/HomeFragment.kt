@@ -19,7 +19,7 @@ import dev.olaore.recipeze.R
 import dev.olaore.recipeze.adapters.RecipesAdapter
 import dev.olaore.recipeze.databinding.FragmentHomeBinding
 import dev.olaore.recipeze.models.domain.Recipe
-import dev.olaore.recipeze.models.mappers.Result
+import dev.olaore.recipeze.models.mappers.Status
 import dev.olaore.recipeze.obtainViewModel
 import dev.olaore.recipeze.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -59,16 +59,16 @@ class HomeFragment : Fragment() {
 
         viewModel.randomRecipes.observe(viewLifecycleOwner, Observer {
             if (it !== null) {
-                when (it) {
-                    is Result.SUCCESS -> {
+                when (it.status) {
+                    Status.SUCCESS -> {
 
-                        binding.recipesList.visibility = if (it.data.isNotEmpty()) View.VISIBLE else View.GONE
+                        binding.recipesList.visibility = if (it.data!!.isNotEmpty()) View.VISIBLE else View.GONE
                         binding.recipezeLoader.visibility = View.INVISIBLE
                         binding.emptyRecipezeContainer.visibility = if (it.data.isEmpty()) View.VISIBLE else View.GONE
 
                         setUpRecipes(it.data)
                     }
-                    is Result.ERROR -> {
+                    Status.ERROR -> {
                         binding.recipesList.visibility = View.GONE
                         binding.recipezeLoader.visibility = View.INVISIBLE
                         binding.emptyRecipezeContainer.visibility = View.VISIBLE
@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
                         binding.emptyRecipezeText.text = "Error Occurred";
 
                     }
-                    is Result.LOADING<*> -> {
+                    Status.LOADING -> {
                         binding.recipesList.visibility = View.GONE
                         binding.emptyRecipezeContainer.visibility = View.GONE
                         binding.recipezeLoader.visibility = View.VISIBLE
@@ -119,9 +119,9 @@ class HomeFragment : Fragment() {
 
         recipes_chip_group.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == 0) {
-                viewModel.getRandomRecipes("ALL")
+                viewModel.getRandomRecipes()
             } else if (checkedId != 0) {
-                viewModel.getRandomRecipes(cuisines[checkedId - 1])
+                viewModel.refreshRecipes(cuisines[checkedId - 1])
             }
         }
 

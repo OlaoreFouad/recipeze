@@ -57,16 +57,18 @@ fun getRecipeSummary(id: Int): NetworkRecipeSummary? {
     return null
 }
 
-sealed class Result<out T: Any> {
-    data class SUCCESS<out T: Any>(val data: T): Result<T>()
-    data class ERROR(val message: String): Result<Nothing>()
-    data class LOADING<out T: Any>(val data: T? = null): Result<Nothing>()
+enum class Status {
+    LOADING, ERROR, SUCCESS
+}
 
+class Resource<out T>(val status: Status, val data: T? = null, val message: String? = null) {
     companion object {
-        fun <T> convert(result: Result.SUCCESS<List<T>>): String {
-            return result.data.size.toString()
-        }
+
+        fun <T> success(data: T?) = Resource(Status.SUCCESS, data)
+
+        fun <T> error(message: String) = Resource(Status.ERROR, null, message)
+
+        fun <T> loading() = Resource(Status.LOADING, null)
+
     }
-
-
 }
