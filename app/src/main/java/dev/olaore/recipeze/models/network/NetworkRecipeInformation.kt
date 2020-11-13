@@ -7,7 +7,11 @@ data class NetworkRecipeInformation(
     var readyInMinutes: Int,
     var dishTypes: List<String>,
     var sourceName: String,
-    var extendedIngredients: List<NetworkRecipeIngredient>
+    var extendedIngredients: List<NetworkRecipeIngredient>,
+    var creditsText: String,
+    var summary: String,
+    var servings: Int,
+    var aggregateLikes: Int
 )
 
 data class NetworkRecipeRandomContainer(
