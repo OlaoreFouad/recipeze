@@ -1,5 +1,6 @@
 package dev.olaore.recipeze
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -9,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import dev.olaore.recipeze.activities.RecipeActivity
 import dev.olaore.recipeze.fragments.FavoritesFragment
 import dev.olaore.recipeze.fragments.HomeFragment
 import dev.olaore.recipeze.fragments.SavedRecipesFragment
@@ -43,6 +45,9 @@ class RecipezeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             onNavigationItemSelected(navigationView.menu.findItem(R.id.nav_home))
         }
 
+        val intent = Intent(this, RecipeActivity::class.java)
+        // supposed to pass in some bundle data here
+        startActivity(intent)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean  {
