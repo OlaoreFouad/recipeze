@@ -33,4 +33,7 @@
     <string name="it_s_a_bit_dusty_in_here">It\'s a bit dusty in here</string>
     <string name="view_saved_recipes">View Saved Recipes</string>
     <string name="cacao_maco_walnut_milk">Cacao Maco Walnut Milk</string>
+    <string name="placeholder_text_single_recipe_summary">Easy, sweet and extremely delicious!</string>
+    <string name="_294">294</string>
+    <string name="minutes_10">10</string>
 </resources>

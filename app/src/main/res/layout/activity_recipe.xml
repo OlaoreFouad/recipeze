@@ -32,11 +32,11 @@
             app:layout_constraintGuide_percent="0.95" />
 
         <ImageView
+            android:id="@+id/single_recipe_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@id/mid_guideline"
-            android:id="@+id/single_recipe_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,8 +44,8 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/back_arrow"
             android:layout_marginTop="16dp"
+            android:src="@drawable/back_arrow"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,48 +62,86 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/recipe_bottom_sheet"
         android:layout_width="match_parent"
-        android:background="@android:color/darker_gray"
-        app:layout_behavior="@string/bottom_sheet_behavior"
+        android:layout_height="0dp"
+        android:background="@drawable/single_recipe_details_bg"
+        android:minHeight="0dp"
         app:behavior_hideable="false"
         app:behavior_peekHeight="0dp"
-        android:layout_height="0dp">
+        app:layout_behavior="@string/bottom_sheet_behavior">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/bottom_sheet_start_guideline"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.05" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_sheet_start_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/bottom_sheet_end_guideline"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.95" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_sheet_end_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <TextView
+                android:id="@+id/single_recipe_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/medium_padding"
+                android:text="@string/cacao_maco_walnut_milk"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/medium_text_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/bottom_sheet_end_guideline"
+                app:layout_constraintStart_toStartOf="@id/bottom_sheet_start_guideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/single_recipe_summary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_text_single_recipe_summary"
+                android:textColor="#888686"
+                android:textSize="@dimen/default_text_size"
+                app:layout_constraintEnd_toEndOf="@id/bottom_sheet_end_guideline"
+                app:layout_constraintStart_toStartOf="@id/bottom_sheet_start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/single_recipe_name" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/medium_padding"
+                android:paddingBottom="@dimen/medium_padding"
+                app:layout_constraintEnd_toEndOf="@id/bottom_sheet_end_guideline"
+                app:layout_constraintStart_toStartOf="@id/bottom_sheet_start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/single_recipe_summary">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/bottom_sheet_start_guideline"
-                    app:layout_constraintEnd_toEndOf="@+id/bottom_sheet_end_guideline"
-                    android:text="@string/cacao_maco_walnut_milk"
-                    android:textColor="@android:color/black"
-                    android:background="@color/colorAccent"
-                    android:textSize="@dimen/medium_text_size"
-                    android:textStyle="bold"
-                    android:paddingTop="@dimen/small_padding"
-                    android:paddingBottom="@dimen/small_padding" />
+                    android:drawableStart="@drawable/no_favorite_gray"
+                    android:drawablePadding="10dp"
+                    android:text="@string/_294"
+                    android:textSize="@dimen/small_text_size" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:drawableStart="@drawable/ic_duration"
+                    android:drawablePadding="10dp"
+                    android:text="@string/minutes_10"
+                    android:textSize="@dimen/small_text_size" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

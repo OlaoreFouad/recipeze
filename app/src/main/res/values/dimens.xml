@@ -13,4 +13,5 @@
     <dimen name="radius_default">8dp</dimen>
     <dimen name="padding_normal">18dp</dimen>
     <dimen name="small_padding">8dp</dimen>
+    <dimen name="medium_padding">12dp</dimen>
 </resources>

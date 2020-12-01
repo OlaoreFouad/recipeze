@@ -7,4 +7,5 @@
   <color name="colorPrimaryLight">#FAF2F2</color>
     <color name="colorPinFragment">#F9FCFF</color>
   <color name="colorDarkBlue">#2F4858</color>
+    <color name="colorBlue200">#F8FBFE</color>
 </resources>
