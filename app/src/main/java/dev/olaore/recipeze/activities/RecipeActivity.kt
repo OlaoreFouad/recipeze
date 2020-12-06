@@ -7,17 +7,29 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.core.widget.NestedScrollView
+import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dev.olaore.recipeze.R
+import dev.olaore.recipeze.adapters.RecipeTabsAdapter
+import dev.olaore.recipeze.databinding.ActivityRecipeBinding
+import dev.olaore.recipeze.fragments.recipe.RecipeDetailsFragment
+import dev.olaore.recipeze.fragments.recipe.RecipeIngredientsFragment
+import dev.olaore.recipeze.fragments.recipe.RecipeInstructionsFragment
+import dev.olaore.recipeze.models.domain.Recipe
 
 class RecipeActivity : AppCompatActivity() {
 
     lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     lateinit var bottomSheet: View
+    lateinit var recipeTabsAdapter: RecipeTabsAdapter
+
+    lateinit var binding: ActivityRecipeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recipe)
+        binding = DataBindingUtil.setContentView(
+            this, R.layout.activity_recipe
+        )
 
         bottomSheet = findViewById(R.id.recipe_bottom_sheet)
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
@@ -42,5 +54,16 @@ class RecipeActivity : AppCompatActivity() {
                 }
             }
         })
+
+        recipeTabsAdapter = RecipeTabsAdapter(supportFragmentManager)
+        recipeTabsAdapter.apply {
+            addFragment(RecipeIngredientsFragment())
+            addFragment(RecipeInstructionsFragment())
+            addFragment(RecipeDetailsFragment())
+        }
+
+        binding.recipeViewPager.adapter = recipeTabsAdapter
+        binding.recipeTabLayout.setupWithViewPager(binding.recipeViewPager)
+
     }
 }
