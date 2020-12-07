@@ -72,6 +72,7 @@
             android:layout_height="350dp"
             android:background="@drawable/single_recipe_details_bg"
             app:behavior_hideable="false"
+            android:fillViewport="true"
             app:behavior_peekHeight="350dp"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
@@ -165,8 +166,9 @@
                     android:id="@+id/recipe_view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_tab_layout"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/recipe_tab_layout" />
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
