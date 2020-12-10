@@ -5,7 +5,8 @@
   <color name="colorAccent">#581c0c</color>
   <color name="colorSecondary">#f1e3cb</color>
   <color name="colorPrimaryLight">#FAF2F2</color>
-    <color name="colorPinFragment">#F9FCFF</color>
+  <color name="colorPinFragment">#F9FCFF</color>
   <color name="colorDarkBlue">#2F4858</color>
-    <color name="colorBlue200">#F8FBFE</color>
+  <color name="colorBlue200">#F8FBFE</color>
+  <color name="colorBlue400">#F3F5F9</color>
 </resources>
