@@ -19,8 +19,8 @@ data class Recipe(
         false, summary
     )
 
-    constructor(randomNetRecipe: NetworkRecipeInformation?) :  this(
-        randomNetRecipe?.id, randomNetRecipe?.image, randomNetRecipe?.readyInMinutes, randomNetRecipe?.title, false, ""
+    constructor(randomNetRecipe: NetworkRecipeInformation?, summary: String) :  this(
+        randomNetRecipe?.id, randomNetRecipe?.image, randomNetRecipe?.readyInMinutes, randomNetRecipe?.title, false, summary
     )
 
 }

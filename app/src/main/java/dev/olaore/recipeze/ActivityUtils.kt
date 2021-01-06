@@ -17,3 +17,15 @@ fun <T: ViewModel> Fragment.obtainViewModel(modelClass: Class<T>): T {
     ).get(modelClass)
 
 }
+
+fun <T: ViewModel> AppCompatActivity.obtainViewModel(modelClass: Class<T>): T {
+
+    val usersRepository = (this.application as RecipesApplication).usersRepository
+    val recipesRepository = (this.application as RecipesApplication).recipesRepository
+    val viewModelFactory = ViewModelFactory(usersRepository, recipesRepository)
+
+    return ViewModelProvider(
+        this, viewModelFactory
+    ).get(modelClass)
+
+}

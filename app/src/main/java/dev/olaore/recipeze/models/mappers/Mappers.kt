@@ -22,7 +22,7 @@ fun NetworkRecipeSearchContainer.asDomainModel(): List<Recipe> {
 fun NetworkRecipeRandomContainer.asDomainModel(): List<Recipe> {
 
     return recipes.map {
-        Recipe(it)
+        Recipe(it, "")
     }
 
 }

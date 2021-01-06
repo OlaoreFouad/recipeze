@@ -1,7 +1,9 @@
 package dev.olaore.recipeze.network
 
 import android.util.Log
+import dev.olaore.recipeze.models.network.NetworkRecipeInformation
 import dev.olaore.recipeze.models.network.NetworkRecipeRandomContainer
+import dev.olaore.recipeze.models.network.NetworkRecipeSummary
 import dev.olaore.recipeze.utils.Utils
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -11,6 +13,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 //
@@ -50,6 +53,19 @@ interface RecipesService {
         @Query("apiKey") key: String
     ): NetworkRecipeRandomContainer
 
+    @GET("{id}/information")
+    suspend fun getRecipeDetails(
+        @Path("id") recipeId: Int,
+        @Query("includeNutrition") includeNutrition: Boolean = false,
+        @Query("apiKey") key: String
+    ): NetworkRecipeInformation
+
+    @GET("{id}/summary")
+    suspend fun getRecipeSummary(
+        @Path("id") recipeId: Int,
+        @Query("apiKey") key: String
+    ): NetworkRecipeSummary
+
 }
 
 object Network {
@@ -65,5 +81,9 @@ class RecipesApiHelper(private val apiService: RecipesService) {
     suspend fun getAllRecipes() = apiService.getRandomRecipes(10, Utils.API_KEY)
 
     suspend fun getRecipesWithTag(tag: String) = apiService.getRandomRecipesWithTag(tag.toLowerCase(), 10, Utils.API_KEY)
+
+    suspend fun getRecipeDetails(id: Int) = apiService.getRecipeDetails(id, key = Utils.API_KEY)
+
+    suspend fun getRecipeSummary(id: Int) = apiService.getRecipeSummary(id, Utils.API_KEY)
 
 }

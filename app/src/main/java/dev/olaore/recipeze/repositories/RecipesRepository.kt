@@ -23,5 +23,8 @@ class RecipesRepository(
 
     suspend fun refreshRecipes(tag: String) = recipesHelper.getRecipesWithTag(tag)
 
+    suspend fun getRecipeDetails(id: Int) = recipesHelper.getRecipeDetails(id)
+
+    suspend fun getRecipeSummary(id: Int) = recipesHelper.getRecipeSummary(id)
 
 }

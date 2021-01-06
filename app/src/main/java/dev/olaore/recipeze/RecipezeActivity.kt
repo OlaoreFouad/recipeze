@@ -45,9 +45,6 @@ class RecipezeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             onNavigationItemSelected(navigationView.menu.findItem(R.id.nav_home))
         }
 
-        val intent = Intent(this, RecipeActivity::class.java)
-        // supposed to pass in some bundle data here
-        startActivity(intent)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean  {

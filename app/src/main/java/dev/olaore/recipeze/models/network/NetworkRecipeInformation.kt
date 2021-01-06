@@ -9,7 +9,6 @@ data class NetworkRecipeInformation(
     var sourceName: String,
     var extendedIngredients: List<NetworkRecipeIngredient>,
     var creditsText: String,
-    var summary: String,
     var servings: Int,
     var aggregateLikes: Int
 )
