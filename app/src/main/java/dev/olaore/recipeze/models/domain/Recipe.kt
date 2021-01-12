@@ -10,17 +10,19 @@ data class Recipe(
     var readyInMinutes: Int? = 0,
     var title: String? = "",
     var isLocal: Boolean? = false,
+    var likes: Int? = 0,
     var summary: String? = ""
 
 ) {
 
     constructor(netRecipe: NetworkRecipeSearch, summary: String) : this(
         netRecipe.id, netRecipe.image, netRecipe.readyInMinutes, netRecipe.title,
-        false, summary
+        false, 0, summary
     )
 
     constructor(randomNetRecipe: NetworkRecipeInformation?, summary: String) :  this(
-        randomNetRecipe?.id, randomNetRecipe?.image, randomNetRecipe?.readyInMinutes, randomNetRecipe?.title, false, summary
+        randomNetRecipe?.id, randomNetRecipe?.image, randomNetRecipe?.readyInMinutes,
+        randomNetRecipe?.title, false, randomNetRecipe?.aggregateLikes, summary
     )
 
 }

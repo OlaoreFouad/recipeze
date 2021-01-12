@@ -40,7 +40,7 @@ fun User.asDatabaseModel() = DatabaseUser(username = username!!, diets = diets, 
 fun List<DatabaseRecipe>.asDomainModel(): List<Recipe> {
     return map {
         Recipe(
-            it.id, it.imageUri, it.readyInMinutes, it.title, true, it.summary
+            it.id, it.imageUri, it.readyInMinutes, it.title, true, 0, it.summary
         )
     }
 }

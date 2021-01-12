@@ -69,11 +69,11 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/recipe_bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="350dp"
             android:background="@drawable/single_recipe_details_bg"
             app:behavior_hideable="false"
             android:fillViewport="true"
-            app:behavior_peekHeight="0dp"
+            app:behavior_peekHeight="350dp"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
