@@ -1,6 +1,7 @@
 package dev.olaore.recipeze.adapters
 
 import android.annotation.SuppressLint
+import android.text.Html
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -20,6 +21,15 @@ fun saveEnabled(view: Button, currentPreferences: List<Preference>?) {
 
     }
 
+}
+
+@BindingAdapter("splitText")
+fun splitText(view: TextView, text: String?) {
+    if (text != null && text.isNotBlank()) {
+        view.text = Html.fromHtml(text.split(".")[0])
+    } else {
+        view.text = view.resources.getString(R.string.no_recipe_available_for_this_recipe)
+    }
 }
 
 @BindingAdapter("imageUrl")

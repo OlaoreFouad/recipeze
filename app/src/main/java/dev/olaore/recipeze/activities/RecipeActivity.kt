@@ -42,6 +42,8 @@ class RecipeActivity : AppCompatActivity() {
         )
 
         recipeViewModel = obtainViewModel(RecipeViewModel::class.java)
+        binding.lifecycleOwner = this
+        binding.recipeViewModel = recipeViewModel
 
         val extras = intent.extras
         recipeId = extras!!.getInt(Utils.RECIPE_ID_KEY)
@@ -96,7 +98,6 @@ class RecipeActivity : AppCompatActivity() {
         recipeViewModel.recipe.observe(this) {
             if (it != null) {
                 when (it.status) {
-                    Status.LOADING -> Toast.makeText(applicationContext, "Recipe Details Loading", Toast.LENGTH_LONG).show()
                     Status.ERROR -> Toast.makeText(applicationContext, it.message, Toast.LENGTH_LONG).show()
                     Status.SUCCESS -> Log.d("RecipeActivity", it.data.toString())
                 }

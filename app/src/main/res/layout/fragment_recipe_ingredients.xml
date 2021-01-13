@@ -1,14 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlue400"
+    android:orientation="vertical"
     tools:context=".fragments.recipe.RecipeIngredientsFragment">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello Ingredients Fragment" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/medium_padding"
+        android:text="@string/for_1_serving"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/medium_text_size" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/medium_padding"
+        android:text="Ingredient 1"
+        android:textColor="@color/colorBlack"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/medium_padding"
+        android:text="Ingredient 2"
+        android:textColor="@color/colorBlack"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/medium_padding"
+        android:text="Ingredient 3"
+        android:textColor="@color/colorBlack"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/medium_padding"
+        android:text="Ingredient 4"
+        android:textColor="@color/colorBlack"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/medium_padding"
+        android:text="Ingredient 5"
+        android:textColor="@color/colorBlack"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/medium_padding"
+        android:text="Ingredient 6"
+        android:textColor="@color/colorBlack"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/medium_padding"
+        android:text="Ingredient 7"
+        android:textColor="@color/colorBlack"
+        android:textSize="22sp" />
+
+</LinearLayout>

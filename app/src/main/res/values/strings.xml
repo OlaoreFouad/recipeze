@@ -36,4 +36,6 @@
     <string name="placeholder_text_single_recipe_summary">Easy, sweet and extremely delicious!</string>
     <string name="_294">294</string>
     <string name="minutes_10">10</string>
+    <string name="no_recipe_available_for_this_recipe">No summary available for this recipe.</string>
+    <string name="for_1_serving">For 1 Serving</string>
 </resources>
