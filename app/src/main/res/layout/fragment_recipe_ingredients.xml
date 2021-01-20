@@ -18,69 +18,14 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:id="@+id/view_barrier"
         android:background="#ccc" />
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="@dimen/medium_padding"
-        android:text="Ingredient 1"
-        android:textColor="@color/colorBlack"
-        android:textSize="22sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="@dimen/medium_padding"
-        android:text="Ingredient 2"
-        android:textColor="@color/colorBlack"
-        android:textSize="22sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="@dimen/medium_padding"
-        android:text="Ingredient 3"
-        android:textColor="@color/colorBlack"
-        android:textSize="22sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="@dimen/medium_padding"
-        android:text="Ingredient 4"
-        android:textColor="@color/colorBlack"
-        android:textSize="22sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="@dimen/medium_padding"
-        android:text="Ingredient 5"
-        android:textColor="@color/colorBlack"
-        android:textSize="22sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="@dimen/medium_padding"
-        android:text="Ingredient 6"
-        android:textColor="@color/colorBlack"
-        android:textSize="22sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="@dimen/medium_padding"
-        android:text="Ingredient 7"
-        android:textColor="@color/colorBlack"
-        android:textSize="22sp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/recipe_ingredients_list"
+        />
 
 </LinearLayout>

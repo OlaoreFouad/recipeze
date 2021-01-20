@@ -6,10 +6,9 @@ import dev.olaore.recipeze.models.database.DatabaseRecipe
 import dev.olaore.recipeze.models.database.DatabaseUser
 import dev.olaore.recipeze.models.domain.Preference
 import dev.olaore.recipeze.models.domain.Recipe
+import dev.olaore.recipeze.models.domain.RecipeIngredient
 import dev.olaore.recipeze.models.domain.User
-import dev.olaore.recipeze.models.network.NetworkRecipeRandomContainer
-import dev.olaore.recipeze.models.network.NetworkRecipeSearchContainer
-import dev.olaore.recipeze.models.network.NetworkRecipeSummary
+import dev.olaore.recipeze.models.network.*
 
 fun NetworkRecipeSearchContainer.asDomainModel(): List<Recipe> {
 
@@ -40,7 +39,7 @@ fun User.asDatabaseModel() = DatabaseUser(username = username!!, diets = diets, 
 fun List<DatabaseRecipe>.asDomainModel(): List<Recipe> {
     return map {
         Recipe(
-            it.id, it.imageUri, it.readyInMinutes, it.title, true, 0, it.summary
+            it.id, it.imageUri, it.readyInMinutes, it.title, true, 0, it.summary, mutableListOf()
         )
     }
 }
@@ -51,6 +50,18 @@ fun List<DatabaseDiet>.asPreferenceDietDomainModel(): List<Preference> {
 
 fun List<DatabaseCuisine>.asPreferenceCuisineDomainModel(): List<Preference> {
     return map { Preference(it) }
+}
+
+fun NetworkRecipeIngredientMeasureContainer.convertToString(): String {
+    return "${ this.metric.amount } ${ this.metric.unitLong }"
+}
+
+fun List<NetworkRecipeIngredient>.asDomainModel(id: Int): List<RecipeIngredient> {
+    return map { ingredient ->
+        RecipeIngredient(
+            id, ingredient.name, ingredient.originalName, ingredient.original, ingredient.unit, ingredient.measures.convertToString()
+        )
+    }
 }
 
 fun getRecipeSummary(id: Int): NetworkRecipeSummary? {

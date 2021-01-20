@@ -32,6 +32,10 @@ class RecipeActivity : AppCompatActivity() {
     lateinit var recipeTabsAdapter: RecipeTabsAdapter
     lateinit var recipeViewModel: RecipeViewModel
 
+    val recipeIngredientsFragment = RecipeIngredientsFragment()
+    val recipeInstructionsFragment = RecipeInstructionsFragment()
+    val recipeDetailsFragment = RecipeDetailsFragment()
+
     lateinit var binding: ActivityRecipeBinding
     var recipeId: Int = 0
 
@@ -85,9 +89,11 @@ class RecipeActivity : AppCompatActivity() {
     private fun setupTabsWithViewPager() {
         recipeTabsAdapter = RecipeTabsAdapter(supportFragmentManager)
         recipeTabsAdapter.apply {
-            addFragment(RecipeIngredientsFragment())
-            addFragment(RecipeInstructionsFragment())
-            addFragment(RecipeDetailsFragment())
+
+            addFragment(recipeIngredientsFragment)
+            addFragment(recipeInstructionsFragment)
+            addFragment(recipeDetailsFragment)
+
         }
 
         binding.recipeViewPager.adapter = recipeTabsAdapter
@@ -99,7 +105,10 @@ class RecipeActivity : AppCompatActivity() {
             if (it != null) {
                 when (it.status) {
                     Status.ERROR -> Toast.makeText(applicationContext, it.message, Toast.LENGTH_LONG).show()
-                    Status.SUCCESS -> Log.d("RecipeActivity", it.data.toString())
+                    Status.SUCCESS -> {
+                        Log.d("RecipeActivity", it.data.toString())
+                        recipeIngredientsFragment.updateIngredients(it.data?.ingredients)
+                    }
                 }
             }
         }
