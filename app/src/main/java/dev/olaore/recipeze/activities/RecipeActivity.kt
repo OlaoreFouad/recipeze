@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.view.get
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.observe
@@ -19,7 +20,9 @@ import dev.olaore.recipeze.databinding.ActivityRecipeBinding
 import dev.olaore.recipeze.fragments.recipe.RecipeDetailsFragment
 import dev.olaore.recipeze.fragments.recipe.RecipeIngredientsFragment
 import dev.olaore.recipeze.fragments.recipe.RecipeInstructionsFragment
+import dev.olaore.recipeze.listeners.OnRecipeIngredientsProvided
 import dev.olaore.recipeze.models.domain.Recipe
+import dev.olaore.recipeze.models.domain.RecipeIngredient
 import dev.olaore.recipeze.models.mappers.Status
 import dev.olaore.recipeze.obtainViewModel
 import dev.olaore.recipeze.utils.Utils
@@ -32,9 +35,9 @@ class RecipeActivity : AppCompatActivity() {
     lateinit var recipeTabsAdapter: RecipeTabsAdapter
     lateinit var recipeViewModel: RecipeViewModel
 
-    val recipeIngredientsFragment = RecipeIngredientsFragment()
-    val recipeInstructionsFragment = RecipeInstructionsFragment()
-    val recipeDetailsFragment = RecipeDetailsFragment()
+    private val recipeIngredientsFragment = RecipeIngredientsFragment()
+    private val recipeInstructionsFragment = RecipeInstructionsFragment()
+    private val recipeDetailsFragment = RecipeDetailsFragment()
 
     lateinit var binding: ActivityRecipeBinding
     var recipeId: Int = 0
@@ -52,9 +55,6 @@ class RecipeActivity : AppCompatActivity() {
         val extras = intent.extras
         recipeId = extras!!.getInt(Utils.RECIPE_ID_KEY)
         recipeViewModel.recipeId = recipeId
-
-        setupBottomSheet()
-        setupTabsWithViewPager()
 
         getRecipeDetails();
 
@@ -106,8 +106,13 @@ class RecipeActivity : AppCompatActivity() {
                 when (it.status) {
                     Status.ERROR -> Toast.makeText(applicationContext, it.message, Toast.LENGTH_LONG).show()
                     Status.SUCCESS -> {
-                        Log.d("RecipeActivity", it.data.toString())
-                        recipeIngredientsFragment.updateIngredients(it.data?.ingredients)
+
+                        setupBottomSheet()
+                        setupTabsWithViewPager()
+
+                        val fragment = recipeTabsAdapter.getItem(0) as RecipeIngredientsFragment
+                        fragment.provideIngredients(it.data!!.ingredients)
+
                     }
                 }
             }

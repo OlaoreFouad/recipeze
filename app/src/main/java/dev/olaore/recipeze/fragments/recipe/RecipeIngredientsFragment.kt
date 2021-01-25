@@ -10,22 +10,24 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.olaore.recipeze.R
+import dev.olaore.recipeze.activities.RecipeActivity
 import dev.olaore.recipeze.listeners.OnRecipeIngredientsProvided
 import dev.olaore.recipeze.models.domain.RecipeIngredient
 
-class RecipeIngredientsFragment(
-    val onRecipeIngredientsProvided: OnRecipeIngredientsProvided
-) : Fragment() {
+class RecipeIngredientsFragment() : Fragment() {
 
     private var ingredients = mutableListOf<RecipeIngredient>()
     private lateinit var ingredientsAdapter: IngredientsAdapter
     private lateinit var ingredientList: RecyclerView
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_recipe_ingredients, container, false)
     }
 
@@ -36,23 +38,17 @@ class RecipeIngredientsFragment(
 
     }
 
-    fun updateIngredients(ings: MutableList<RecipeIngredient>?) {
+    fun provideIngredients(ingredients: List<RecipeIngredient>) {
         this.ingredients.clear()
-        this.ingredients.addAll(ings!!)
+        this.ingredients.addAll(ingredients)
 
         ingredientsAdapter = IngredientsAdapter(requireContext(), this.ingredients)
-        
-        ingredientList.apply { 
+
+        ingredientList.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireActivity())
             adapter = ingredientsAdapter
         }
-        
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
     }
 
 }
