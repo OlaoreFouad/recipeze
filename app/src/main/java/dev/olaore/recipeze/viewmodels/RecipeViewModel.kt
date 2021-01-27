@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.olaore.recipeze.models.domain.Recipe
+import dev.olaore.recipeze.models.domain.RecipeIngredient
 import dev.olaore.recipeze.models.mappers.Resource
 import dev.olaore.recipeze.repositories.RecipesRepository
 import dev.olaore.recipeze.repositories.UsersRepository
@@ -17,6 +18,7 @@ class RecipeViewModel(
 
     var recipeId: Int = 0
     var recipe = MutableLiveData<Resource<Recipe>>()
+    var ingredients = MutableLiveData<List<RecipeIngredient>>()
 
     fun retrieveRecipeDetails() {
         viewModelScope.launch {
@@ -30,6 +32,7 @@ class RecipeViewModel(
                 val finalRecipe = Recipe(networkRecipeDetails, networkRecipeSummary)
 
                 recipe.postValue(Resource.success(finalRecipe))
+                ingredients.postValue(finalRecipe.ingredients)
             } catch (ex: Exception) {
                 recipe.postValue(Resource.error<Recipe>("Error occurred while getting recipes: ${ ex.message }"))
             }

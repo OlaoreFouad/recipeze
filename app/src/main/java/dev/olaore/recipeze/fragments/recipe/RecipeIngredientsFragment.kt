@@ -2,17 +2,22 @@ package dev.olaore.recipeze.fragments.recipe
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.olaore.recipeze.R
 import dev.olaore.recipeze.activities.RecipeActivity
 import dev.olaore.recipeze.listeners.OnRecipeIngredientsProvided
 import dev.olaore.recipeze.models.domain.RecipeIngredient
+import dev.olaore.recipeze.obtainParentViewModel
+import dev.olaore.recipeze.obtainViewModel
+import dev.olaore.recipeze.viewmodels.RecipeViewModel
 
 class RecipeIngredientsFragment() : Fragment() {
 
@@ -20,9 +25,7 @@ class RecipeIngredientsFragment() : Fragment() {
     private lateinit var ingredientsAdapter: IngredientsAdapter
     private lateinit var ingredientList: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var recipeViewModel: RecipeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,11 +37,17 @@ class RecipeIngredientsFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        recipeViewModel = obtainParentViewModel(RecipeViewModel::class.java)
         ingredientList = view.findViewById(R.id.recipe_ingredients_list)
+
+        recipeViewModel.ingredients.observe(viewLifecycleOwner, Observer {
+            Log.d("RecipeActivity", "Size of Ingredients: ${ it.size }")
+            provideIngredients(it)
+        })
 
     }
 
-    fun provideIngredients(ingredients: List<RecipeIngredient>) {
+    private fun provideIngredients(ingredients: List<RecipeIngredient>) {
         this.ingredients.clear()
         this.ingredients.addAll(ingredients)
 

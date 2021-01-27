@@ -110,9 +110,6 @@ class RecipeActivity : AppCompatActivity() {
                         setupBottomSheet()
                         setupTabsWithViewPager()
 
-                        val fragment = recipeTabsAdapter.getItem(0) as RecipeIngredientsFragment
-                        fragment.provideIngredients(it.data!!.ingredients)
-
                     }
                 }
             }
