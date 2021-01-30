@@ -14,6 +14,10 @@
             type="android.view.View" />
 
         <import
+            alias="U"
+            type="dev.olaore.recipeze.utils.Utils" />
+
+        <import
             alias="Status"
             type="dev.olaore.recipeze.models.mappers.Status" />
     </data>
@@ -169,7 +173,7 @@
                         android:drawableStart="@drawable/ic_duration"
                         android:drawablePadding="10dp"
                         tools:text="@string/minutes_10"
-                        android:text="@{ recipeViewModel.recipe.data.readyInMinutes.toString() }"
+                        android:text="@{ U.addQuote(recipeViewModel.recipe.data.readyInMinutes.toString()) }"
                         android:textSize="@dimen/small_text_size" />
 
                 </LinearLayout>
