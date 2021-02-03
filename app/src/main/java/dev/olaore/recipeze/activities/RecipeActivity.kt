@@ -104,8 +104,13 @@ class RecipeActivity : AppCompatActivity() {
         recipeViewModel.recipe.observe(this) {
             if (it != null) {
                 when (it.status) {
-                    Status.ERROR -> Toast.makeText(applicationContext, it.message, Toast.LENGTH_LONG).show()
+                    Status.ERROR -> {
+                        Toast.makeText(applicationContext, it.message, Toast.LENGTH_LONG).show()
+                        Log.d("RecipeActivity", it.message!!)
+                    }
                     Status.SUCCESS -> {
+
+                        Log.d("RecipeActivity", it.data?.instructions.toString())
 
                         setupBottomSheet()
                         setupTabsWithViewPager()

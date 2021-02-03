@@ -2,6 +2,7 @@ package dev.olaore.recipeze.network
 
 import android.util.Log
 import dev.olaore.recipeze.models.network.NetworkRecipeInformation
+import dev.olaore.recipeze.models.network.NetworkRecipeInstructionContainer
 import dev.olaore.recipeze.models.network.NetworkRecipeRandomContainer
 import dev.olaore.recipeze.models.network.NetworkRecipeSummary
 import dev.olaore.recipeze.utils.Utils
@@ -66,6 +67,12 @@ interface RecipesService {
         @Query("apiKey") key: String
     ): NetworkRecipeSummary
 
+    @GET("{id}/analyzedInstructions")
+    suspend fun getAnalyzedInstructions(
+        @Path("id") recipeId: Int,
+        @Query("apiKey") apiKey: String
+    ): List<NetworkRecipeInstructionContainer>
+
 }
 
 object Network {
@@ -85,5 +92,7 @@ class RecipesApiHelper(private val apiService: RecipesService) {
     suspend fun getRecipeDetails(id: Int) = apiService.getRecipeDetails(id, key = Utils.API_KEY)
 
     suspend fun getRecipeSummary(id: Int) = apiService.getRecipeSummary(id, Utils.API_KEY)
+
+    suspend fun getRecipeInstructions(id: Int) = apiService.getAnalyzedInstructions(id, Utils.API_KEY)
 
 }

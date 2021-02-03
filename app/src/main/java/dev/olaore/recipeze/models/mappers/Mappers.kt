@@ -4,10 +4,7 @@ import dev.olaore.recipeze.models.database.DatabaseCuisine
 import dev.olaore.recipeze.models.database.DatabaseDiet
 import dev.olaore.recipeze.models.database.DatabaseRecipe
 import dev.olaore.recipeze.models.database.DatabaseUser
-import dev.olaore.recipeze.models.domain.Preference
-import dev.olaore.recipeze.models.domain.Recipe
-import dev.olaore.recipeze.models.domain.RecipeIngredient
-import dev.olaore.recipeze.models.domain.User
+import dev.olaore.recipeze.models.domain.*
 import dev.olaore.recipeze.models.network.*
 
 fun NetworkRecipeSearchContainer.asDomainModel(): List<Recipe> {
@@ -39,7 +36,7 @@ fun User.asDatabaseModel() = DatabaseUser(username = username!!, diets = diets, 
 fun List<DatabaseRecipe>.asDomainModel(): List<Recipe> {
     return map {
         Recipe(
-            it.id, it.imageUri, it.readyInMinutes, it.title, true, 0, it.summary, mutableListOf()
+            it.id, it.imageUri, it.readyInMinutes, it.title, true, 0, it.summary
         )
     }
 }
@@ -60,6 +57,25 @@ fun List<NetworkRecipeIngredient>.asDomainModel(id: Int): List<RecipeIngredient>
     return map { ingredient ->
         RecipeIngredient(
             id, ingredient.name, ingredient.originalName, ingredient.original, ingredient.unit, ingredient.measures.convertToString()
+        )
+    }
+}
+
+fun List<NetworkRecipeInstruction>.asRecipeInstructionDomainModel(id: Int): List<RecipeInstruction> {
+    return map { instruction ->
+        RecipeInstruction(
+            id, instruction.number,
+            instruction.step,
+            instruction.equipment.asRecipeInstructionDataDomainModel(),
+            instruction.ingredients.asRecipeInstructionDataDomainModel()
+        )
+    }
+}
+
+fun List<NetworkRecipeInstructionMetadata>.asRecipeInstructionDataDomainModel(): List<RecipeInstructionData> {
+    return map { instructionMetaData ->
+        RecipeInstructionData(
+            instructionMetaData.id, instructionMetaData.name
         )
     }
 }

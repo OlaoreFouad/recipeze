@@ -28,8 +28,9 @@ class RecipeViewModel(
             try {
                 val networkRecipeDetails = recipesRepository.getRecipeDetails(recipeId)
                 val networkRecipeSummary = recipesRepository.getRecipeSummary(recipeId).summary
+                val networkRecipeInstructions = recipesRepository.getRecipeInstruction(recipeId).get(0).steps
 
-                val finalRecipe = Recipe(networkRecipeDetails, networkRecipeSummary)
+                val finalRecipe = Recipe(networkRecipeDetails, networkRecipeSummary, networkRecipeInstructions.toMutableList())
 
                 recipe.postValue(Resource.success(finalRecipe))
                 ingredients.postValue(finalRecipe.ingredients)
