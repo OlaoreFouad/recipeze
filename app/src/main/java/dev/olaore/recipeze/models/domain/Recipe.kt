@@ -2,6 +2,7 @@ package dev.olaore.recipeze.models.domain
 
 import android.util.Log
 import dev.olaore.recipeze.models.mappers.asDomainModel
+import dev.olaore.recipeze.models.mappers.asRecipeInstructionDomainModel
 import dev.olaore.recipeze.models.mappers.convertToString
 import dev.olaore.recipeze.models.network.NetworkRecipeInformation
 import dev.olaore.recipeze.models.network.NetworkRecipeIngredient
@@ -40,7 +41,8 @@ data class Recipe(
         false,
         randomNetRecipe?.aggregateLikes,
         summary,
-        randomNetRecipe!!.extendedIngredients.asDomainModel(randomNetRecipe.id).toMutableList()
+        randomNetRecipe!!.extendedIngredients.asDomainModel(randomNetRecipe.id).toMutableList(),
+        networkInstructions.asRecipeInstructionDomainModel(randomNetRecipe.id).toMutableList()
     )
 
 }

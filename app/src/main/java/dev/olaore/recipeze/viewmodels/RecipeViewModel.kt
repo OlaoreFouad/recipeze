@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.olaore.recipeze.models.domain.Recipe
 import dev.olaore.recipeze.models.domain.RecipeIngredient
+import dev.olaore.recipeze.models.domain.RecipeInstruction
 import dev.olaore.recipeze.models.mappers.Resource
 import dev.olaore.recipeze.repositories.RecipesRepository
 import dev.olaore.recipeze.repositories.UsersRepository
@@ -19,6 +20,7 @@ class RecipeViewModel(
     var recipeId: Int = 0
     var recipe = MutableLiveData<Resource<Recipe>>()
     var ingredients = MutableLiveData<List<RecipeIngredient>>()
+    var instructions = MutableLiveData<List<RecipeInstruction>>()
 
     fun retrieveRecipeDetails() {
         viewModelScope.launch {
@@ -28,12 +30,17 @@ class RecipeViewModel(
             try {
                 val networkRecipeDetails = recipesRepository.getRecipeDetails(recipeId)
                 val networkRecipeSummary = recipesRepository.getRecipeSummary(recipeId).summary
-                val networkRecipeInstructions = recipesRepository.getRecipeInstruction(recipeId).get(0).steps
+                val networkRecipeInstructionsContainer = recipesRepository.getRecipeInstruction(recipeId)
+
+                val networkRecipeInstructions = if (
+                    networkRecipeInstructionsContainer.isNotEmpty()
+                ) networkRecipeInstructionsContainer[0].steps else listOf();
 
                 val finalRecipe = Recipe(networkRecipeDetails, networkRecipeSummary, networkRecipeInstructions.toMutableList())
 
                 recipe.postValue(Resource.success(finalRecipe))
                 ingredients.postValue(finalRecipe.ingredients)
+                instructions.postValue(finalRecipe.instructions)
             } catch (ex: Exception) {
                 recipe.postValue(Resource.error<Recipe>("Error occurred while getting recipes: ${ ex.message }"))
             }

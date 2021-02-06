@@ -106,10 +106,12 @@ class RecipeActivity : AppCompatActivity() {
                 when (it.status) {
                     Status.ERROR -> {
                         Toast.makeText(applicationContext, it.message, Toast.LENGTH_LONG).show()
+                        Log.d("RecipeActivity", "id: " + recipeViewModel.recipeId.toString())
                         Log.d("RecipeActivity", it.message!!)
                     }
                     Status.SUCCESS -> {
 
+                        Log.d("RecipeActivity", "id: " + recipeViewModel.recipeId.toString())
                         Log.d("RecipeActivity", it.data?.instructions.toString())
 
                         setupBottomSheet()
