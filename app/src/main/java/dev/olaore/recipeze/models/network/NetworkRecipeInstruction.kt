@@ -11,7 +11,7 @@ data class NetworkRecipeInstructionContainer (
 data class NetworkRecipeInstruction(
     var equipment: List<NetworkRecipeInstructionMetadata>,
     var ingredients: List<NetworkRecipeInstructionMetadata>,
-    @Expose(serialize = false, deserialize = true) var length: List<NetworkRecipeInstructionLength>? = null,
+    var length: NetworkRecipeInstructionLength?,
     var number: Int,
     var step: String
 )
