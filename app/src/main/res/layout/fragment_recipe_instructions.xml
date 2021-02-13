@@ -6,9 +6,10 @@
     android:background="@color/colorBlue400"
     tools:context=".fragments.recipe.RecipeInstructionsFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello Instructions Fragment" />
+        android:id="@+id/recipeInstructionsList"
+        android:padding="@dimen/medium_padding"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
