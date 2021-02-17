@@ -9,6 +9,8 @@ import dev.olaore.recipeze.R
 
 class RecipeDetailsFragment : Fragment() {
 
+    // TODO: dishTypes, occassions, sourceName and sourceUrl, license
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
