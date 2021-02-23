@@ -69,6 +69,9 @@ class HomeFragment : Fragment() {
                         setUpRecipes(it.data)
                     }
                     Status.ERROR -> {
+
+                        Log.d("HomeFragment", it!!.message)
+
                         binding.recipesList.visibility = View.GONE
                         binding.recipezeLoader.visibility = View.INVISIBLE
                         binding.emptyRecipezeContainer.visibility = View.VISIBLE

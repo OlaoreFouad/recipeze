@@ -19,30 +19,43 @@ data class Recipe(
     var likes: Int? = 0,
     var summary: String? = "",
     var ingredients: MutableList<RecipeIngredient> = mutableListOf(),
-    var instructions: MutableList<RecipeInstruction> = mutableListOf()
+    var instructions: MutableList<RecipeInstruction> = mutableListOf(),
+    var occassions: String? = "",
+    var dishTypes: String? = "",
+    var sourceName: String? = "",
+    var sourceUrl: String? = "",
+    var license: String? = ""
 
 ) {
     
 
     constructor(netRecipe: NetworkRecipeSearch, summary: String) : this(
-        netRecipe.id, netRecipe.image, netRecipe.readyInMinutes, netRecipe.title,
-        false, 0, summary, mutableListOf(), mutableListOf()
+        netRecipe.id,
+        netRecipe.image,
+        netRecipe.readyInMinutes,
+        netRecipe.title,
+        false, 0, summary
     )
 
     constructor(
-        randomNetRecipe: NetworkRecipeInformation?,
+        recipe: NetworkRecipeInformation?,
         summary: String,
         networkInstructions: MutableList<NetworkRecipeInstruction> = mutableListOf()
     ) :  this(
-        randomNetRecipe?.id,
-        randomNetRecipe?.image,
-        randomNetRecipe?.readyInMinutes,
-        randomNetRecipe?.title,
+        recipe?.id,
+        recipe?.image,
+        recipe?.readyInMinutes,
+        recipe?.title,
         false,
-        randomNetRecipe?.aggregateLikes,
+        recipe?.aggregateLikes,
         summary,
-        randomNetRecipe!!.extendedIngredients.asDomainModel(randomNetRecipe.id).toMutableList(),
-        networkInstructions.asRecipeInstructionDomainModel(randomNetRecipe.id).toMutableList()
+        recipe!!.extendedIngredients.asDomainModel(recipe.id).toMutableList(),
+        networkInstructions.asRecipeInstructionDomainModel(recipe.id).toMutableList(),
+        recipe?.occassions?.joinToString(),
+        recipe?.dishTypes?.joinToString(),
+        recipe?.sourceName,
+        recipe?.sourceUrl,
+        recipe?.license
     )
 
 }

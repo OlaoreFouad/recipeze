@@ -112,7 +112,7 @@ class RecipeActivity : AppCompatActivity() {
                     Status.SUCCESS -> {
 
                         Log.d("RecipeActivity", "id: " + recipeViewModel.recipeId.toString())
-                        Log.d("RecipeActivity", it.data?.instructions.toString())
+                        Log.d("RecipeActivity", "${ it.data?.occassions } ${ it.data?.dishTypes } ${ it.data?.sourceName } ${ it.data?.sourceUrl }")
 
                         setupBottomSheet()
                         setupTabsWithViewPager()
