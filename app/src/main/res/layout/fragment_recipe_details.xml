@@ -1,14 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBlue400"
-    tools:context=".fragments.recipe.RecipeDetailsFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello Details Fragment" />
+        android:background="@color/colorBlue400"
+        tools:context=".fragments.recipe.RecipeDetailsFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:fillViewport="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/details_summary"
+                tools:text="Summaryyyyyyy"
+                android:padding="@dimen/small_padding"
+                android:textSize="@dimen/default_text_size"
+                android:textColor="@color/colorBlack"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/details_dish_types"
+                tools:text="Dish Types: African, Asian, Korean"
+                android:padding="@dimen/small_padding"
+                android:textSize="@dimen/default_text_size"
+                android:textColor="@color/colorBlack"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/details_occassions"
+                tools:text="Occassions: Naming Ceremony, Weddings, Graduations, Burial e.t.c."
+                android:padding="@dimen/small_padding"
+                android:textSize="@dimen/default_text_size"
+                android:textColor="@color/colorBlack"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/details_source_name"
+                tools:text="Source Name: Spoonacular API"
+                android:padding="@dimen/small_padding"
+                android:textSize="@dimen/default_text_size"
+                android:textColor="@color/colorBlack"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/details_source_url"
+                tools:text="Source URL: https://omo.inoknowwherethisonedeygo.com/home"
+                android:padding="@dimen/small_padding"
+                android:textSize="@dimen/default_text_size"
+                android:textColor="@color/colorBlack"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/details_source_license"
+                tools:text="License: ISC"
+                android:padding="@dimen/small_padding"
+                android:textSize="@dimen/default_text_size"
+                android:textColor="@color/colorBlack"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

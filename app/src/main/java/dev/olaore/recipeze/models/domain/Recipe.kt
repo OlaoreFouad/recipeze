@@ -58,4 +58,17 @@ data class Recipe(
         recipe?.license
     )
 
+    fun getRecipeDetails(): RecipeDetails {
+        return RecipeDetails(this.occassions, this.dishTypes, this.sourceName, this.sourceUrl, this.license, this.summary!!)
+    }
+
 }
+
+data class RecipeDetails(
+    var occassions: String? = "",
+    var dishTypes: String? = "",
+    var sourceName: String? = "",
+    var sourceUrl: String? = "",
+    var license: String? = "",
+    var summary: String = ""
+)

@@ -5,18 +5,62 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import dev.olaore.recipeze.R
+import androidx.lifecycle.observe
+import dev.olaore.recipeze.databinding.FragmentRecipeDetailsBinding
+import dev.olaore.recipeze.obtainParentViewModel
+import dev.olaore.recipeze.viewmodels.RecipeViewModel
 
 class RecipeDetailsFragment : Fragment() {
 
-    // TODO: dishTypes, occassions, sourceName and sourceUrl, license
+    private lateinit var binding: FragmentRecipeDetailsBinding
+    private lateinit var viewModel: RecipeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe_details, container, false)
+        binding = FragmentRecipeDetailsBinding.inflate(inflater)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = obtainParentViewModel(RecipeViewModel::class.java)
+
+        viewModel.details.observe(viewLifecycleOwner) {
+            prepareSummary(it.summary)
+            prepareSourceUrl(it.sourceUrl)
+            prepareSourceName(it.sourceName)
+            prepareDishTypes(it.dishTypes)
+            prepareLicense(it.license)
+            prepareOccasions(it.occassions)
+        }
+
+    }
+
+    private fun prepareOccasions(occasions: String?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun prepareLicense(license: String?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun prepareDishTypes(dishTypes: String?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun prepareSourceName(sourceName: String?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun prepareSourceUrl(sourceUrl: String?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun prepareSummary(summary: String) {
+        TODO("Not yet implemented")
     }
 
 }
