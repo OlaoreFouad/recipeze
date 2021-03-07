@@ -39,4 +39,9 @@
     <string name="no_recipe_available_for_this_recipe">No summary available for this recipe.</string>
     <string name="for_1_serving">For 1 Serving</string>
     <string name="lorem">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</string>
+    <string name="dish_types">Dish Types: %s</string>
+    <string name="source_url">Source URL: %s</string>
+    <string name="source_name">Source Name: %s</string>
+    <string name="license">License: %s</string>
+    <string name="occasion">Occasion(s): %s</string>
 </resources>
