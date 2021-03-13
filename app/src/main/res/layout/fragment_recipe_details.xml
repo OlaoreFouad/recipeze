@@ -9,7 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBlue400"
+        android:background="@color/colorBlue200"
         tools:context=".fragments.recipe.RecipeDetailsFragment">
 
         <LinearLayout
