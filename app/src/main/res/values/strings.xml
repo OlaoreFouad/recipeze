@@ -44,4 +44,6 @@
     <string name="source_name">Source Name: %s</string>
     <string name="license">License: %s</string>
     <string name="occasion">Occasion(s): %s</string>
+    <string name="hi_fouad_what_recipes_are_you_searching_for_today">Hi, Fouad. <br/> What recipes are you searching for today?</string>
+    <string name="enter_recipe_name_ingredient_e_t_c">Enter recipe name, ingredient e.t.c.</string>
 </resources>

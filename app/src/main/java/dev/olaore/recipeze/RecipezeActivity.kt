@@ -3,14 +3,18 @@ package dev.olaore.recipeze
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import dev.olaore.recipeze.activities.RecipeActivity
+import dev.olaore.recipeze.activities.SearchActivity
 import dev.olaore.recipeze.fragments.FavoritesFragment
 import dev.olaore.recipeze.fragments.HomeFragment
 import dev.olaore.recipeze.fragments.SavedRecipesFragment
@@ -47,6 +51,22 @@ class RecipezeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.nav_search -> {
+                openSearch()
+                true
+            }
+            else  -> false
+        }
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean  {
 
         when(item.itemId) {
@@ -57,6 +77,11 @@ class RecipezeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         }
 
         return true
+    }
+
+    private fun openSearch() {
+        val searchIntent = Intent(this, SearchActivity::class.java)
+        startActivity(searchIntent)
     }
 
     private fun setCurrentFragment(fragment: Fragment, tag: String) {
