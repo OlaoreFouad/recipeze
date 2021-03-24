@@ -20,6 +20,7 @@ class ViewModelFactory(
             PreferencesViewModel::class.java -> PreferencesViewModel(usersRepository)
             PinViewModel::class.java -> PinViewModel(usersRepository)
             RecipeViewModel::class.java -> RecipeViewModel(usersRepository, recipesRepository)
+            SearchViewModel::class.java -> SearchViewModel(usersRepository, recipesRepository)
             else -> {
                 IllegalArgumentException("ViewModel class must be part of recognized viewmodels for the factory")
             }
