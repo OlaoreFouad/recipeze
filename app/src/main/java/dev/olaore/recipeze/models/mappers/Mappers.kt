@@ -1,9 +1,6 @@
 package dev.olaore.recipeze.models.mappers
 
-import dev.olaore.recipeze.models.database.DatabaseCuisine
-import dev.olaore.recipeze.models.database.DatabaseDiet
-import dev.olaore.recipeze.models.database.DatabaseRecipe
-import dev.olaore.recipeze.models.database.DatabaseUser
+import dev.olaore.recipeze.models.database.*
 import dev.olaore.recipeze.models.domain.*
 import dev.olaore.recipeze.models.network.*
 
@@ -77,6 +74,12 @@ fun List<NetworkRecipeInstructionMetadata>.asRecipeInstructionDataDomainModel():
         RecipeInstructionData(
             instructionMetaData.id, instructionMetaData.name
         )
+    }
+}
+
+fun List<DatabaseRecentSearch>.asDomainRecentSearches(): List<RecentSearch> {
+    return map {
+        RecentSearch(it.id, it.content)
     }
 }
 

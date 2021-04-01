@@ -6,22 +6,22 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import dev.olaore.recipeze.database.dao.RecentSearchesDao
 import dev.olaore.recipeze.database.dao.UsersDao
-import dev.olaore.recipeze.models.database.DatabaseCuisine
-import dev.olaore.recipeze.models.database.DatabaseDiet
-import dev.olaore.recipeze.models.database.DatabaseUser
-import dev.olaore.recipeze.models.database.SearchResult
+import dev.olaore.recipeze.models.database.*
+import dev.olaore.recipeze.models.domain.RecentSearch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [DatabaseUser::class, DatabaseDiet::class, DatabaseCuisine::class, SearchResult::class],
+    entities = [DatabaseUser::class, DatabaseDiet::class, DatabaseCuisine::class, SearchResult::class, DatabaseRecentSearch::class],
     version = 1,
     exportSchema = false
 )
 abstract class UsersDatabase : RoomDatabase() {
     abstract val usersDao: UsersDao
+    abstract val recentSearchesDao: RecentSearchesDao
 }
 
 private lateinit var INSTANCE: UsersDatabase
