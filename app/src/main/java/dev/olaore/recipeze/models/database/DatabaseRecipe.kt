@@ -22,7 +22,7 @@ data class DatabaseRecipe(
 ) {
 
     constructor(netRecipe: NetworkRecipeSearch, summary: String) : this(
-        netRecipe.id, netRecipe.title, "", netRecipe.readyInMinutes,
+        netRecipe.id, netRecipe.title, "", 0,
         summary, ""
     )
 

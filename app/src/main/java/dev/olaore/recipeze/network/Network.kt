@@ -1,10 +1,7 @@
 package dev.olaore.recipeze.network
 
 import android.util.Log
-import dev.olaore.recipeze.models.network.NetworkRecipeInformation
-import dev.olaore.recipeze.models.network.NetworkRecipeInstructionContainer
-import dev.olaore.recipeze.models.network.NetworkRecipeRandomContainer
-import dev.olaore.recipeze.models.network.NetworkRecipeSummary
+import dev.olaore.recipeze.models.network.*
 import dev.olaore.recipeze.utils.Utils
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -13,6 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -73,6 +71,12 @@ interface RecipesService {
         @Query("apiKey") apiKey: String
     ): List<NetworkRecipeInstructionContainer>
 
+    @GET("complexSearch")
+    suspend fun searchRecipes(
+        @Query("query") query: String,
+        @Query("apiKey") apiKey: String
+    ): NetworkRecipeSearchContainer
+
 }
 
 object Network {
@@ -94,5 +98,7 @@ class RecipesApiHelper(private val apiService: RecipesService) {
     suspend fun getRecipeSummary(id: Int) = apiService.getRecipeSummary(id, Utils.API_KEY)
 
     suspend fun getRecipeInstructions(id: Int) = apiService.getAnalyzedInstructions(id, Utils.API_KEY)
+
+    suspend fun searchRecipe(query: String) = apiService.searchRecipes(query, Utils.API_KEY)
 
 }

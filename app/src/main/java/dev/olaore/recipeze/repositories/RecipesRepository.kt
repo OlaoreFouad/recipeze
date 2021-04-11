@@ -29,4 +29,6 @@ class RecipesRepository(
 
     suspend fun getRecipeInstruction(id: Int) = recipesHelper.getRecipeInstructions(id)
 
+    suspend fun searchRecipes(query: String) = recipesHelper.searchRecipe(query)
+
 }

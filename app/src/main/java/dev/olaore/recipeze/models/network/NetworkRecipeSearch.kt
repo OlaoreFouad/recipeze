@@ -3,8 +3,6 @@ package dev.olaore.recipeze.models.network
 data class NetworkRecipeSearch(
     var id: Int,
     var image: String,
-    var imageUrls: List<String>,
-    var readyInMinutes: Int,
     var title: String
 )
 

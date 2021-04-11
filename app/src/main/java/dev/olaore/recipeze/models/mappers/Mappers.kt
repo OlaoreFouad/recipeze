@@ -102,3 +102,9 @@ class Resource<out T>(val status: Status, val data: T? = null, val message: Stri
 
     }
 }
+
+fun List<NetworkRecipeSearch>.convertToDomainSearches(): List<RecipeSearch> {
+    return map {
+        RecipeSearch(it.id, it.image, it.title)
+    }
+}

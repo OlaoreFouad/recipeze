@@ -8,12 +8,12 @@ import dev.olaore.recipeze.models.database.DatabaseRecentSearch
 interface RecentSearchesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addRecentSearch(recentSearch: DatabaseRecentSearch)
+    fun addRecentSearch(recentSearch: DatabaseRecentSearch)
 
     @Query("SELECT * FROM recent_searches_table ORDER BY createdOn LIMIT 5")
-    suspend fun getRecentSearches(): LiveData<List<DatabaseRecentSearch>>
+    fun getRecentSearches(): LiveData<List<DatabaseRecentSearch>>
 
     @Query("DELETE FROM recent_searches_table WHERE id = :id")
-    suspend fun deleteRecentSearch(id: String)
+    fun deleteRecentSearch(id: String)
 
 }
