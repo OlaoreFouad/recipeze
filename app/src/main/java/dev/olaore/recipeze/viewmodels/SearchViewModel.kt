@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.olaore.recipeze.models.database.DatabaseUser
+import dev.olaore.recipeze.models.domain.RecentSearch
 import dev.olaore.recipeze.models.domain.RecipeSearch
 import dev.olaore.recipeze.models.domain.User
 import dev.olaore.recipeze.models.mappers.Resource
@@ -20,21 +21,34 @@ class SearchViewModel(
 
     var user: LiveData<User> = userRepository.user
     var searchedRecipes = MutableLiveData<Resource<List<RecipeSearch>>>()
-
+    var recentSearches: LiveData<List<RecentSearch>> = userRepository.recentSearches
 
     fun search(query: String) {
 
-        searchedRecipes.postValue(Resource.loading<Any>())
+        searchedRecipes.postValue(Resource.loading())
 
         viewModelScope.launch {
             try {
                 val searchedRecipesResult = recipesRepository.searchRecipes(query).results.convertToDomainSearches()
+                saveSearchQuery(query)
                 searchedRecipes.postValue(Resource.success(searchedRecipesResult))
             } catch (exception: Exception) {
-                searchedRecipes.postValue(Resource.error<Any>("Error occurred: " + exception.message))
+                searchedRecipes.postValue(Resource.error("Error occurred: " + exception.message))
             }
         }
 
+    }
+
+    private fun saveSearchQuery(query: String) {
+        viewModelScope.launch {
+            userRepository.saveRecentSearch(query)
+        }
+    }
+
+    fun deleteRecentSearch(id: String) {
+        viewModelScope.launch {
+            userRepository.deleteRecentSearch(id)
+        }
     }
 
 }

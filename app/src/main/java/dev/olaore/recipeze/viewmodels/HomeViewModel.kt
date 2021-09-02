@@ -28,22 +28,22 @@ class HomeViewModel(
 
     fun getRandomRecipes() {
         viewModelScope.launch {
-            _randomRecipes.postValue(Resource.loading<List<Recipe>>())
+            _randomRecipes.postValue(Resource.loading())
             try {
                 _randomRecipes.postValue(Resource.success(recipesRepository.getRandomRecipes().asDomainModel()))
             } catch (e: Exception) {
-                _randomRecipes.postValue(Resource.error<List<Recipe>>(e.message ?: "Error Occurred"))
+                _randomRecipes.postValue(Resource.error(e.message ?: "Error Occurred"))
             }
         }
     }
 
     fun refreshRecipes(tags: String) {
         viewModelScope.launch {
-            _randomRecipes.postValue(Resource.loading<List<Recipe>>())
+            _randomRecipes.postValue(Resource.loading())
             try {
                 _randomRecipes.postValue(Resource.success(recipesRepository.refreshRecipes(tags).asDomainModel()))
             } catch (e: Exception) {
-                _randomRecipes.postValue(Resource.error<List<Recipe>>(e.message ?: "Error Occurred"))
+                _randomRecipes.postValue(Resource.error(e.message ?: "Error Occurred"))
             }
         }
     }

@@ -55,16 +55,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_salutation" />
 
-        <ProgressBar
-            android:id="@+id/search_recipes_loader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:layout_marginTop="20dp"
-            android:visibility="@{ isLoading ? V.VISIBLE : V.GONE }"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_edit_text" />
+<!--        <ProgressBar-->
+<!--            android:id="@+id/search_recipes_loader"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:indeterminate="true"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:visibility="@{ isLoading ? V.VISIBLE : V.GONE }"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/search_edit_text" />-->
 
         <ImageView
             android:id="@+id/search_button"
@@ -84,9 +84,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/recent_searches"
-            android:visibility="gone"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/medium_text_size"
+            android:textSize="@dimen/default_text_size"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/search_button" />
 

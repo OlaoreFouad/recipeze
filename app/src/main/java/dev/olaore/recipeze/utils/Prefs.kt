@@ -26,4 +26,11 @@ object Prefs {
         return ctx.getSharedPreferences(RECIPEZE_PREFERENCES_KEY, Context.MODE_PRIVATE)
     }
 
+    fun clearAuthentication(context: Context) {
+        val sharedPreferences = getPreferences(context)
+        sharedPreferences.edit(commit = true) {
+            remove(AUTHENTICATED_KEY)
+        }
+    }
+
 }

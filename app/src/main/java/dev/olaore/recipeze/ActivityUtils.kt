@@ -1,5 +1,6 @@
 package dev.olaore.recipeze
 
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
@@ -40,4 +41,12 @@ fun <T: ViewModel> AppCompatActivity.obtainViewModel(modelClass: Class<T>): T {
         this, viewModelFactory
     ).get(modelClass)
 
+}
+
+fun AppCompatActivity.showToast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+}
+
+fun Fragment.showToast(message: String) {
+    Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
 }

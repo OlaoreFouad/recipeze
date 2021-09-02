@@ -27,7 +27,7 @@ class RecipeViewModel(
     fun retrieveRecipeDetails() {
         viewModelScope.launch {
 
-            recipe.postValue(Resource.loading<Recipe>())
+            recipe.postValue(Resource.loading())
 
             try {
                 val networkRecipeDetails = recipesRepository.getRecipeDetails(recipeId)
@@ -45,7 +45,7 @@ class RecipeViewModel(
                 instructions.postValue(finalRecipe.instructions)
                 details.postValue(finalRecipe.getRecipeDetails())
             } catch (ex: Exception) {
-                recipe.postValue(Resource.error<Recipe>("Error occurred while getting recipes: ${ ex.message }"))
+                recipe.postValue(Resource.error("Error occurred while getting recipes: ${ ex.message }"))
             }
 
         }

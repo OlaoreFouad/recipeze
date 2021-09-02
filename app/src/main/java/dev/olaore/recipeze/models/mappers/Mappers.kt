@@ -96,9 +96,9 @@ class Resource<out T>(val status: Status, val data: T? = null, val message: Stri
 
         fun <T> success(data: T?) = Resource(Status.SUCCESS, data)
 
-        fun <T> error(message: String) = Resource(Status.ERROR, null, message)
+        fun error(message: String) = Resource(Status.ERROR, null, message)
 
-        fun <T> loading() = Resource(Status.LOADING, null)
+        fun loading() = Resource(Status.LOADING, null)
 
     }
 }
@@ -108,3 +108,5 @@ fun List<NetworkRecipeSearch>.convertToDomainSearches(): List<RecipeSearch> {
         RecipeSearch(it.id, it.image, it.title)
     }
 }
+
+fun DatabaseRecentSearch.asDomainModel(): RecentSearch = RecentSearch(id, content)

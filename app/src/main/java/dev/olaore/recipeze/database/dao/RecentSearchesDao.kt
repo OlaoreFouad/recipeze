@@ -10,7 +10,7 @@ interface RecentSearchesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addRecentSearch(recentSearch: DatabaseRecentSearch)
 
-    @Query("SELECT * FROM recent_searches_table ORDER BY createdOn LIMIT 5")
+    @Query("SELECT * FROM recent_searches_table ORDER BY createdOn DESC LIMIT 5")
     fun getRecentSearches(): LiveData<List<DatabaseRecentSearch>>
 
     @Query("DELETE FROM recent_searches_table WHERE id = :id")

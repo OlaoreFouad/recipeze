@@ -80,6 +80,10 @@ class OnboardingFragment : Fragment() {
             it.findNavController().navigate(R.id.action_onboardingFragment_to_registerFragment)
         }
 
+        binding.topRightActionButton.setOnClickListener {
+            it.findNavController().navigate(R.id.action_onboardingFragment_to_registerFragment)
+        }
+
     }
 
     private fun pageSelected(selectedIndex: Int) {
