@@ -56,6 +56,10 @@ class RecipeActivity : AppCompatActivity() {
         recipeId = extras!!.getInt(Utils.RECIPE_ID_KEY)
         recipeViewModel.recipeId = recipeId
 
+        binding.backButton.setOnClickListener {
+            finish()
+        }
+
         getRecipeDetails();
 
     }
@@ -106,14 +110,8 @@ class RecipeActivity : AppCompatActivity() {
                 when (it.status) {
                     Status.ERROR -> {
                         Toast.makeText(applicationContext, it.message, Toast.LENGTH_LONG).show()
-                        Log.d("RecipeActivity", "id: " + recipeViewModel.recipeId.toString())
-                        Log.d("RecipeActivity", it.message!!)
                     }
                     Status.SUCCESS -> {
-
-                        Log.d("RecipeActivity", "id: " + recipeViewModel.recipeId.toString())
-                        Log.d("RecipeActivity", "${ it.data?.occassions } ${ it.data?.dishTypes } ${ it.data?.sourceName } ${ it.data?.sourceUrl }")
-
                         setupBottomSheet()
                         setupTabsWithViewPager()
 
