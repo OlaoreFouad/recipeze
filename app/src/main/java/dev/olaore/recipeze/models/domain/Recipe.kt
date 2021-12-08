@@ -55,6 +55,12 @@ data class Recipe(
         recipe?.license
     )
 
+    constructor(recipeSearch: RecipeSearch): this(
+        recipeSearch.id,
+        recipeSearch.image,
+        title = recipeSearch.title
+    )
+
     fun getRecipeDetails(): RecipeDetails {
         return RecipeDetails(this.occassions, this.dishTypes, this.sourceName, this.sourceUrl, this.license, this.summary!!)
     }

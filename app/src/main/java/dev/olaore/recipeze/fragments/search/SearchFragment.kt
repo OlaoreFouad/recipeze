@@ -11,12 +11,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.olaore.recipeze.R
 import dev.olaore.recipeze.adapters.RecentSearchesAdapter
 import dev.olaore.recipeze.databinding.FragmentSearchBinding
 import dev.olaore.recipeze.listeners.OnRecentSearchInteraction
 import dev.olaore.recipeze.models.domain.RecentSearch
+import dev.olaore.recipeze.models.domain.SearchResultsContainer
 import dev.olaore.recipeze.models.mappers.Status
 import dev.olaore.recipeze.obtainViewModel
 import dev.olaore.recipeze.showToast
@@ -31,6 +33,8 @@ class SearchFragment : Fragment() {
 
     private lateinit var searchViewModel: SearchViewModel
     private lateinit var recentSearchesAdapter: RecentSearchesAdapter
+
+    private lateinit var query: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,22 +52,29 @@ class SearchFragment : Fragment() {
         binding.isLoading = false
 
         searchViewModel = obtainViewModel(SearchViewModel::class.java)
-        searchViewModel.searchedRecipes.observe(viewLifecycleOwner, Observer {
+        searchViewModel.searchedRecipes.observe(viewLifecycleOwner, {
 
             binding.isLoading = it.status == Status.LOADING
             when (it.status) {
                 Status.ERROR -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    showToast(it.message!!)
                 }
                 Status.SUCCESS -> {
-                    Log.d("SearchActivity", "Search Results: ${ it.data?.size }")
+                    val results = it.data!!
+                    if (results.isNotEmpty()) {
+                        val searchResultsContainer = SearchResultsContainer(results)
+                        findNavController().navigate(
+                            SearchFragmentDirections.actionSearchFragmentToSearchResultsFragment(searchResultsContainer)
+                        )
+                    } else {
+                        showToast("There are no recipes for: " + this.query)
+                    }
                 }
             }
 
         })
 
         searchViewModel.recentSearches.observe(viewLifecycleOwner, Observer {
-            showToast("Size: ${ it.size }")
             if (it.isNotEmpty()) {
                 displayRecentSearches(it)
             } else {
@@ -137,8 +148,8 @@ class SearchFragment : Fragment() {
     }
 
     private fun performSearch() {
-        val query = binding.searchEditText.text.toString()
-        searchViewModel.search(query)
+        this.query = binding.searchEditText.text.toString()
+        searchViewModel.search(this.query)
     }
 
 }

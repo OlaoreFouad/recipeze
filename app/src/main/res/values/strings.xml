@@ -47,4 +47,5 @@
     <string name="hi_fouad_what_recipes_are_you_searching_for_today">Hi, %s.<br /> What recipes are you searching for today?</string>
     <string name="enter_recipe_name_ingredient_e_t_c">Enter recipe name, ingredient e.t.c.</string>
     <string name="recent_searches">Recent Searches</string>
+    <string name="search_results_for_search_result_item">Search results for \'search result item\'</string>
 </resources>
