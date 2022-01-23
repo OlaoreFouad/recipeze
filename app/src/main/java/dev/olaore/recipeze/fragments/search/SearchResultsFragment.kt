@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import dev.olaore.recipeze.R
 import dev.olaore.recipeze.adapters.RecipesAdapter
 import dev.olaore.recipeze.databinding.FragmentSearchResultsBinding
 import dev.olaore.recipeze.models.mappers.toDomainRecipes
@@ -38,6 +40,14 @@ class SearchResultsFragment : Fragment() {
             adapter = _adapter
         }
 
+        binding.close.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.searchResultsHeader.text = resources.getString(
+            R.string.search_results_for_search_result_item,
+            args.searchResultsContainer.query
+        )
         _adapter.submitList(args.searchResultsContainer.results.toDomainRecipes())
 
     }

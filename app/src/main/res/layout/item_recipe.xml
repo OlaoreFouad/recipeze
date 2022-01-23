@@ -9,6 +9,8 @@
             name="recipe"
             type="dev.olaore.recipeze.models.domain.Recipe" />
 
+        <import type="android.view.View" alias="V"/>
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -54,6 +56,7 @@
                 android:layout_height="wrap_content"
                 tools:text="@string/placeholder_ready_in_minutes"
                 app:readyIn="@{ recipe.readyInMinutes }"
+                android:visibility="@{ recipe.readyInMinutes == 0 ? V.INVISIBLE : V.VISIBLE }"
                 android:textColor="@android:color/black"
                 app:layout_constraintTop_toBottomOf="@id/recipe_name" />
 

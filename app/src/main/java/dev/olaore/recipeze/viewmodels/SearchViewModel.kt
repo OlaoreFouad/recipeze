@@ -1,5 +1,6 @@
 package dev.olaore.recipeze.viewmodels
 
+import Event
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,20 +21,20 @@ class SearchViewModel(
 ) : ViewModel() {
 
     var user: LiveData<User> = userRepository.user
-    var searchedRecipes = MutableLiveData<Resource<List<RecipeSearch>>>()
+    var searchedRecipes = MutableLiveData<Event<Resource<List<RecipeSearch>>>>()
     var recentSearches: LiveData<List<RecentSearch>> = userRepository.recentSearches
 
     fun search(query: String) {
 
-        searchedRecipes.postValue(Resource.loading())
+        searchedRecipes.postValue(Event(Resource.loading()))
 
         viewModelScope.launch {
             try {
                 val searchedRecipesResult = recipesRepository.searchRecipes(query).results.convertToDomainSearches()
                 saveSearchQuery(query)
-                searchedRecipes.postValue(Resource.success(searchedRecipesResult))
+                searchedRecipes.postValue(Event(Resource.success(searchedRecipesResult)))
             } catch (exception: Exception) {
-                searchedRecipes.postValue(Resource.error("Error occurred: " + exception.message))
+                searchedRecipes.postValue(Event(Resource.error("Error occurred: " + exception.message)))
             }
         }
 

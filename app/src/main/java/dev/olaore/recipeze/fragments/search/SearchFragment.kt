@@ -49,29 +49,30 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.isLoading = false
-
         searchViewModel = obtainViewModel(SearchViewModel::class.java)
-        searchViewModel.searchedRecipes.observe(viewLifecycleOwner, {
-
-            binding.isLoading = it.status == Status.LOADING
-            when (it.status) {
-                Status.ERROR -> {
-                    showToast(it.message!!)
-                }
-                Status.SUCCESS -> {
-                    val results = it.data!!
-                    if (results.isNotEmpty()) {
-                        val searchResultsContainer = SearchResultsContainer(results)
-                        findNavController().navigate(
-                            SearchFragmentDirections.actionSearchFragmentToSearchResultsFragment(searchResultsContainer)
-                        )
-                    } else {
-                        showToast("There are no recipes for: " + this.query)
+        searchViewModel.searchedRecipes.observe(viewLifecycleOwner, { event ->
+            event.getContentIfNotHandled()?.let {
+                showLoader(it.status == Status.LOADING)
+                when (it.status) {
+                    Status.ERROR -> {
+                        showToast(it.message!!)
+                    }
+                    Status.SUCCESS -> {
+                        val results = it.data!!
+                        if (results.isNotEmpty()) {
+                            resetSearchText()
+                            val searchResultsContainer = SearchResultsContainer(query, results)
+                            findNavController().navigate(
+                                SearchFragmentDirections.actionSearchFragmentToSearchResultsFragment(
+                                    searchResultsContainer
+                                )
+                            )
+                        } else {
+                            showToast("There are no recipes for: " + this.query)
+                        }
                     }
                 }
             }
-
         })
 
         searchViewModel.recentSearches.observe(viewLifecycleOwner, Observer {
@@ -87,7 +88,8 @@ class SearchFragment : Fragment() {
                 text = Html.fromHtml(
                     resources.getString(
                         R.string.hi_fouad_what_recipes_are_you_searching_for_today,
-                        it.username ?: "user")
+                        it.username ?: "user"
+                    )
                 ).toString()
             }
         })
@@ -125,7 +127,6 @@ class SearchFragment : Fragment() {
         super.onDestroyView()
     }
 
-
     private fun displayRecentSearches(searches: List<RecentSearch>) {
         recentSearchesAdapter = RecentSearchesAdapter(object : OnRecentSearchInteraction {
 
@@ -150,6 +151,14 @@ class SearchFragment : Fragment() {
     private fun performSearch() {
         this.query = binding.searchEditText.text.toString()
         searchViewModel.search(this.query)
+    }
+
+    private fun showLoader(show: Boolean = true) {
+        binding.searchRecipesLoader.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    private fun resetSearchText() {
+        binding.searchEditText.setText("")
     }
 
 }
