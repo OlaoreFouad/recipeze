@@ -19,7 +19,7 @@ import dev.olaore.recipeze.models.database.DatabaseRecipeInstructionData
         DatabaseRecipe::class, DatabaseRecipeIngredient::class,
         DatabaseRecipeInstruction::class, DatabaseRecipeInstructionData::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class RecipesDatabase : RoomDatabase() {

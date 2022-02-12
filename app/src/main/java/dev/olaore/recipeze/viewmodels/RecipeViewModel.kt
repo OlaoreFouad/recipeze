@@ -9,8 +9,10 @@ import dev.olaore.recipeze.models.domain.RecipeDetails
 import dev.olaore.recipeze.models.domain.RecipeIngredient
 import dev.olaore.recipeze.models.domain.RecipeInstruction
 import dev.olaore.recipeze.models.mappers.Resource
+import dev.olaore.recipeze.models.mappers.Status
 import dev.olaore.recipeze.repositories.RecipesRepository
 import dev.olaore.recipeze.repositories.UsersRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RecipeViewModel(
@@ -48,6 +50,21 @@ class RecipeViewModel(
                 recipe.postValue(Resource.error("Error occurred while getting recipes: ${ ex.message }"))
             }
 
+        }
+    }
+
+    fun favoriteCurrentRecipe() {
+        if (recipe.value?.status == Status.SUCCESS) {
+            val favoritedRecipe = recipe.value?.data
+            favoritedRecipe?.let {
+
+                viewModelScope.launch(Dispatchers.IO) {
+                    recipesRepository.favoriteRecipe(favoritedRecipe)
+                }
+
+            }
+        } else {
+            // No recipe available yet!
         }
     }
 

@@ -6,6 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import dev.olaore.recipeze.database.RecipesDatabase
 import dev.olaore.recipeze.models.domain.Recipe
+import dev.olaore.recipeze.models.domain.RecipeIngredient
+import dev.olaore.recipeze.models.domain.RecipeInstruction
+import dev.olaore.recipeze.models.domain.mapToEntity
 import dev.olaore.recipeze.models.mappers.asDomainModel
 import dev.olaore.recipeze.models.network.NetworkRecipeRandomContainer
 import dev.olaore.recipeze.network.Network
@@ -30,5 +33,25 @@ class RecipesRepository(
     suspend fun getRecipeInstruction(id: Int) = recipesHelper.getRecipeInstructions(id)
 
     suspend fun searchRecipes(query: String) = recipesHelper.searchRecipe(query)
+
+    suspend fun getRecipeById(id: Int) = database.recipesDao.getRecipe(id)
+
+    suspend fun favoriteRecipe(
+        recipe: Recipe
+    ) {
+        database.recipesDao.insert(recipe.mapToEntity())
+
+        val ings = recipe.ingredients.mapIndexed { index, recipeIngredient ->
+            recipeIngredient.mapToEntity(recipe.id!!, index)
+        }
+
+        database.ingredientsDao.addIngredients(ings)
+
+        val insts = recipe.instructions.map {
+            it.mapToEntity(recipe.id!!)
+        }
+        database.instructionsDao.addInstructions(insts)
+
+    }
 
 }

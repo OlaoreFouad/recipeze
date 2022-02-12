@@ -19,8 +19,8 @@ import androidx.room.PrimaryKey
 )
 data class DatabaseRecipeIngredient(
 
-    @PrimaryKey
-    var id: Int,
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
 
     var recipeId: Int,
 

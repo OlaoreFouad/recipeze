@@ -1,5 +1,6 @@
 package dev.olaore.recipeze.models.domain
 
+import dev.olaore.recipeze.models.database.DatabaseRecipe
 import dev.olaore.recipeze.models.mappers.asDomainModel
 import dev.olaore.recipeze.models.mappers.asRecipeInstructionDomainModel
 import dev.olaore.recipeze.models.network.NetworkRecipeInformation
@@ -75,3 +76,14 @@ data class RecipeDetails(
     var license: String? = "",
     var summary: String = ""
 )
+
+fun Recipe.mapToEntity(): DatabaseRecipe {
+    return DatabaseRecipe(
+        this.id,
+        this.title,
+        this.imageUri,
+        this.readyInMinutes,
+        this.summary,
+        this.dishTypes
+    )
+}

@@ -11,7 +11,7 @@ import dev.olaore.recipeze.models.database.DatabaseRecipeInstructionData
 interface InstructionsDataDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addInstructionsData(vararg data: DatabaseRecipeInstructionData)
+    fun addInstructionsData(data: List<DatabaseRecipeInstructionData>)
 
     @Query(
         "SELECT * FROM recipes_instruction_data_table WHERE instructionId = :instructionsId AND recipeId = :recipeId"

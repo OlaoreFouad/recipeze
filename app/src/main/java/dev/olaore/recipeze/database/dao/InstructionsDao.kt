@@ -11,7 +11,7 @@ import dev.olaore.recipeze.models.database.DatabaseRecipeInstruction
 interface InstructionsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addInstructions(vararg instructions: DatabaseRecipeInstruction)
+    fun addInstructions(instructions: List<DatabaseRecipeInstruction>)
 
     @Query("SELECT * FROM recipes_instructions_table WHERE recipeId = :recipeId")
     fun getInstructionsForRecipe(recipeId: Int): LiveData<List<DatabaseRecipeInstruction>>

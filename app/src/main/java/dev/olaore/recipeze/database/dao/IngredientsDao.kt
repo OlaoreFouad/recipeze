@@ -11,7 +11,7 @@ import dev.olaore.recipeze.models.database.DatabaseRecipeIngredient
 interface IngredientsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addIngredients(vararg ingredients: DatabaseRecipeIngredient)
+    fun addIngredients(ingredients: List<DatabaseRecipeIngredient>)
 
     @Query("SELECT * FROM recipes_ingredients_table WHERE recipeId = :recipeId ORDER BY ingredientIndex")
     fun getIngredientsForRecipe(recipeId: Int): LiveData<List<DatabaseRecipeIngredient>>

@@ -60,9 +60,15 @@ class RecipeActivity : AppCompatActivity() {
             finish()
         }
 
-        getRecipeDetails();
+        binding.favoriteRecipeIcon.setOnClickListener {
+            recipeViewModel.favoriteCurrentRecipe()
+        }
+
+        getRecipeDetails()
 
     }
+
+
 
     private fun setupBottomSheet() {
         bottomSheet = findViewById(R.id.recipe_bottom_sheet)

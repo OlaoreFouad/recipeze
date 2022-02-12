@@ -8,17 +8,17 @@ import dev.olaore.recipeze.models.network.NetworkRecipeSearch
 data class DatabaseRecipe(
 
     @PrimaryKey
-    var id: Int,
+    var id: Int?,
 
-    var title: String,
+    var title: String?,
 
-    var imageUri: String,
+    var imageUri: String?,
 
-    var readyInMinutes: Int,
+    var readyInMinutes: Int?,
 
-    var summary: String,
+    var summary: String?,
 
-    var types: String
+    var types: String?
 ) {
 
     constructor(netRecipe: NetworkRecipeSearch, summary: String) : this(

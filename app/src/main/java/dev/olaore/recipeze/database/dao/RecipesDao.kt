@@ -17,6 +17,6 @@ interface RecipesDao {
     fun getRecipes(): LiveData<List<DatabaseRecipe>>
 
     @Query("SELECT * FROM recipes_table WHERE id = :id")
-    fun getRecipe(id: Int): DatabaseRecipe
+    fun getRecipe(id: Int): DatabaseRecipe?
 
 }
