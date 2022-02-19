@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_cancel.xml" value="0.4338461538461538" />
+        <entry key="app/src/main/res/drawable/ic_favorite.xml" value="0.4338461538461538" />
+        <entry key="app/src/main/res/drawable/ic_favorite_black_24dp.xml" value="0.4338461538461538" />
+        <entry key="app/src/main/res/drawable/no_favorite.xml" value="0.4338461538461538" />
+        <entry key="app/src/main/res/drawable/no_favorite_gray.xml" value="0.4338461538461538" />
         <entry key="app/src/main/res/layout/activity_recipe.xml" value="0.4244791666666667" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.21041666666666667" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.2513586956521739" />

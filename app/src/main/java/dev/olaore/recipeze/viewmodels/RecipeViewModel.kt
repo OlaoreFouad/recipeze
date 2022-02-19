@@ -26,6 +26,9 @@ class RecipeViewModel(
     var instructions = MutableLiveData<List<RecipeInstruction>>()
     var details = MutableLiveData<RecipeDetails>()
 
+    var recipeIsFavorite = MutableLiveData<Boolean>()
+    var recipeIsFavorited = MutableLiveData<Boolean>()
+
     fun retrieveRecipeDetails() {
         viewModelScope.launch {
 
@@ -34,20 +37,25 @@ class RecipeViewModel(
             try {
                 val networkRecipeDetails = recipesRepository.getRecipeDetails(recipeId)
                 val networkRecipeSummary = recipesRepository.getRecipeSummary(recipeId).summary
-                val networkRecipeInstructionsContainer = recipesRepository.getRecipeInstruction(recipeId)
+                val networkRecipeInstructionsContainer =
+                    recipesRepository.getRecipeInstruction(recipeId)
 
                 val networkRecipeInstructions = if (
                     networkRecipeInstructionsContainer.isNotEmpty()
                 ) networkRecipeInstructionsContainer[0].steps else listOf();
 
-                val finalRecipe = Recipe(networkRecipeDetails, networkRecipeSummary, networkRecipeInstructions.toMutableList())
+                val finalRecipe = Recipe(
+                    networkRecipeDetails,
+                    networkRecipeSummary,
+                    networkRecipeInstructions.toMutableList()
+                )
 
                 recipe.postValue(Resource.success(finalRecipe))
                 ingredients.postValue(finalRecipe.ingredients)
                 instructions.postValue(finalRecipe.instructions)
                 details.postValue(finalRecipe.getRecipeDetails())
             } catch (ex: Exception) {
-                recipe.postValue(Resource.error("Error occurred while getting recipes: ${ ex.message }"))
+                recipe.postValue(Resource.error("Error occurred while getting recipes: ${ex.message}"))
             }
 
         }
@@ -57,14 +65,30 @@ class RecipeViewModel(
         if (recipe.value?.status == Status.SUCCESS) {
             val favoritedRecipe = recipe.value?.data
             favoritedRecipe?.let {
-
                 viewModelScope.launch(Dispatchers.IO) {
                     recipesRepository.favoriteRecipe(favoritedRecipe)
+                    recipeIsFavorited.postValue(true)
                 }
-
             }
-        } else {
-            // No recipe available yet!
+        }
+    }
+
+    fun removeFavoriteRecipe() {
+        if (recipe.value?.status == Status.SUCCESS) {
+            val favoritedRecipe = recipe.value?.data
+            favoritedRecipe?.let {
+                viewModelScope.launch(Dispatchers.IO) {
+                    recipesRepository.removeFavoriteRecipe(favoritedRecipe)
+                    recipeIsFavorited.postValue(false)
+                }
+            }
+        }
+    }
+
+    fun isRecipeAFavorite(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val favoritedRecipe = recipesRepository.getRecipeById(id)
+            recipeIsFavorite.postValue(favoritedRecipe != null)
         }
     }
 

@@ -54,4 +54,22 @@ class RecipesRepository(
 
     }
 
+    suspend fun removeFavoriteRecipe(
+        recipe: Recipe
+    ) {
+        database.recipesDao.delete(recipe.mapToEntity())
+
+        val ings = recipe.ingredients.mapIndexed { index, recipeIngredient ->
+            recipeIngredient.mapToEntity(recipe.id!!, index)
+        }
+
+        database.ingredientsDao.deleteIngredients(ings)
+
+        val insts = recipe.instructions.map {
+            it.mapToEntity(recipe.id!!)
+        }
+        database.instructionsDao.deleteInstructions(insts)
+
+    }
+
 }

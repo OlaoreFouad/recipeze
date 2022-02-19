@@ -25,6 +25,7 @@ import dev.olaore.recipeze.models.domain.Recipe
 import dev.olaore.recipeze.models.domain.RecipeIngredient
 import dev.olaore.recipeze.models.mappers.Status
 import dev.olaore.recipeze.obtainViewModel
+import dev.olaore.recipeze.showToast
 import dev.olaore.recipeze.utils.Utils
 import dev.olaore.recipeze.viewmodels.RecipeViewModel
 
@@ -38,6 +39,8 @@ class RecipeActivity : AppCompatActivity() {
     private val recipeIngredientsFragment = RecipeIngredientsFragment()
     private val recipeInstructionsFragment = RecipeInstructionsFragment()
     private val recipeDetailsFragment = RecipeDetailsFragment()
+
+    private var recipeIsFavorite: Boolean = false
 
     lateinit var binding: ActivityRecipeBinding
     var recipeId: Int = 0
@@ -61,13 +64,17 @@ class RecipeActivity : AppCompatActivity() {
         }
 
         binding.favoriteRecipeIcon.setOnClickListener {
-            recipeViewModel.favoriteCurrentRecipe()
+            if (this.recipeIsFavorite) {
+                recipeViewModel.removeFavoriteRecipe()
+            } else {
+                recipeViewModel.favoriteCurrentRecipe()
+            }
         }
 
         getRecipeDetails()
+        setObservers()
 
     }
-
 
 
     private fun setupBottomSheet() {
@@ -80,7 +87,8 @@ class RecipeActivity : AppCompatActivity() {
 
         bottomSheetBehavior.peekHeight = Resources.getSystem().displayMetrics.heightPixels / 2
 
-        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
 
             }
@@ -120,13 +128,37 @@ class RecipeActivity : AppCompatActivity() {
                     Status.SUCCESS -> {
                         setupBottomSheet()
                         setupTabsWithViewPager()
-
+                        isRecipeFavorite()
                     }
                 }
             }
         }
 
         recipeViewModel.retrieveRecipeDetails()
+    }
+
+    private fun isRecipeFavorite() {
+        recipeViewModel.recipeIsFavorite.observe(this) {
+            this.recipeIsFavorite = it
+            setRecipeFavoriteState()
+        }
+        recipeViewModel.isRecipeAFavorite(this.recipeId)
+    }
+
+    private fun setObservers() {
+        recipeViewModel.recipeIsFavorited.observe(this) {
+            this.recipeIsFavorite = it
+            showToast(
+                if (this.recipeIsFavorite) "Recipe added to favorites" else "Recipe removed from favorites"
+            )
+            setRecipeFavoriteState()
+        }
+    }
+
+    private fun setRecipeFavoriteState() {
+        binding.favoriteRecipeIcon.setImageResource(
+            if (this.recipeIsFavorite) R.drawable.ic_favorite_black_24dp else R.drawable.no_favorite
+        )
     }
 
 }
